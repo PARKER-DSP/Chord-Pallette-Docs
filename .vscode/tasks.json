@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Docs: Rebuild Navigation",
+      "type": "shell",
+      "command": "python scripts/generate_nav.py",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: Watch + Auto Rebuild Navigation",
+      "type": "shell",
+      "command": "python tools/watch_nav.py",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: Serve Local Site",
+      "type": "shell",
+      "command": "mkdocs serve",
+      "isBackground": true,
+      "dependsOn": [
+        "Docs: Rebuild Navigation"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: Start Dev (Serve + Auto Nav Rebuild)",
+      "dependsOrder": "parallel",
+      "dependsOn": [
+        "Docs: Serve Local Site",
+        "Docs: Watch + Auto Rebuild Navigation"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
