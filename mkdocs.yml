@@ -34,31 +34,32 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - Foundation:
-      - Overview: 00-foundation/product-overview.md
-      - Jobs To Be Done: 00-foundation/jtbd.md
-      - Target Personas: 00-foundation/personas.md
-      - Product Positioning: 00-foundation/positioning.md
+  - Product:
+      - Foundation:
+          - Overview: 00-foundation/product-overview.md
+          - Jobs To Be Done: 00-foundation/jtbd.md
+          - Target Personas: 00-foundation/personas.md
+          - Positioning: 00-foundation/positioning.md
+      - Features:
+          - Overview: 02-features/overview.md
+          - Voice Leading:
+              - Overview: 02-features/voice-leading/overview.md
+              - Operator Pack UX: 02-features/voice-leading/operator-pack-ux.md
+          - Operators:
+              - Overview: 02-features/operators/overview.md
+              - Operator System: 02-features/operators/operator-system.md
   - Developer:
-      - Overview: 01-developer/guidelines/overview.md
       - Guidelines:
+          - Overview: 01-developer/guidelines/overview.md
           - AI Agent Rules: 01-developer/guidelines/ai-agent-rules.md
-          - Pro Commit Standards: 01-developer/guidelines/pro-commit-guidelines.md
-          - Refactor Invariants: 01-developer/guidelines/invariants.md
+          - Pro Commit Guidelines: 01-developer/guidelines/pro-commit-guidelines.md
+          - Invariants: 01-developer/guidelines/invariants.md
       - Architecture:
-          - Architecture Overview: 01-developer/architecture/architecture-overview.md
+          - Overview: 01-developer/architecture/architecture-overview.md
           - Current Baseline: 01-developer/architecture/current-baseline.md
           - Module Boundaries: 01-developer/architecture/module-boundaries.md
           - Realtime Safety: 01-developer/architecture/realtime-safety.md
-  - Features:
-      - Overview: 02-features/overview.md
-      - Voice Leading:
-          - Overview: 02-features/voice-leading/overview.md
-          - Operator Pack UX: 02-features/voice-leading/operator-pack-ux.md
-      - Operators:
-          - Operator System: 02-features/operators/operator-system.md
-          - Operator Catalog: 02-features/operators/overview.md
-  - Go-to-Market:
+  - Marketing & Sales:
       - Overview: 03-go-to-market/overview.md
       - Marketing:
           - Strategy: 03-go-to-market/marketing/marketing-strategy.md
@@ -67,10 +68,9 @@ nav:
       - Sales:
           - Investor Pitch: 03-go-to-market/sales/investor-pitch.md
           - One-Pager: 03-go-to-market/sales/one-pager.md
-  - UX & Design:
+  - Design:
       - Overview: 04-ux-design/overview.md
       - Style Guide: 04-ux-design/style-guide/style-guide.md
-      - UI:
-          - UI Patterns: 04-ux-design/ui/ui-patterns.md
-          - Voice Leading UX: 04-ux-design/ui/voice-leading-ux.md
+      - UI Patterns: 04-ux-design/ui/ui-patterns.md
+      - Voice Leading UX: 04-ux-design/ui/voice-leading-ux.md
   - Changelog: 07-changelog/changelog.md

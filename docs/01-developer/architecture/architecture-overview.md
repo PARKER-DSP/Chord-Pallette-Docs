@@ -107,6 +107,43 @@ The Core engine operates on immutable base objects:
 - Bank modifiers produce final output states
 - Freeze operations explicitly create new base states
 
+**ChordBlock JSON Structure Example:**
+
+```json
+{
+  "id": "chord_a1f3e8",
+  "baseChord": {
+    "pitchClassSet": [0, 4, 7],
+    "voicing": [48, 52, 59],
+    "root": 0,
+    "inversion": 0
+  },
+  "operatorStates": [
+    {
+      "operatorId": "voicing_spread",
+      "parameters": {"spread": 12, "inversions": 1}
+    },
+    {
+      "operatorId": "harmonic_substitute",
+      "parameters": {"substitution": "iv", "blend": 0.75}
+    }
+  ],
+  "bankModifiers": {
+    "transpose": 5,
+    "octaveShift": 1,
+    "favorite": true
+  },
+  "metadata": {
+    "label": "Csus4 Spread",
+    "tags": ["jazz", "smooth"],
+    "createdAt": "2026-02-14T10:30:00Z",
+    "lastModified": "2026-02-14T10:30:00Z"
+  },
+  "fingerprint": "4a7f2e9c1b5d",
+  "isFrozen": false
+}
+```
+
 This ensures:
 
 - Undo/redo safety
@@ -289,7 +326,84 @@ Not allowed:
 
 ---
 
-# 7. Why This Architecture Matters
+# 7. Chord Deduplication & Uniqueness
+
+ChordPallette prevents duplicate chord blocks in chord banks using a fingerprinting system.
+
+## Fingerprint Strategy
+
+Each ChordBlock is identified by a deterministic fingerprint based on:
+
+- **Pitch class set** – Unordered collection of note classes (C, D, E, etc.), independent of octave
+- **Voicing details** – Specific octaves, inversion, spread pattern
+- **Operator state** – Non-destructive operators applied (if different operators → different fingerprint)
+- **Metadata hash** – Tags, labels, custom annotations
+
+## Deduplication Rules
+
+### Identical Chords
+Two chords are considered **identical** if they have:
+- Same pitch class set
+- Same voicing (same absolute notes)
+- Same operator chain
+- Same key/scale context (if applicable)
+
+**If identical:** System prompts user with options:
+- Replace existing chord (destructive)
+- Create as variant (adds _v2, _v3, etc. suffix)
+- Cancel and discard
+
+### Similar Chords
+Two chords are **similar** if they have:
+- Same pitch class set
+- Different voicing or register
+
+**If similar:** System suggests deduplication:
+- Highlight as "same harmony, different voicing"
+- User can merge or keep both
+- Useful for exploring voicing alternatives
+
+### Implementation Details
+
+**On capture:**
+- When user captures/creates chord, system computes fingerprint immediately
+- Checks existence of fingerprint in current bank
+- Reports match status to UI
+
+**On import/paste:**
+- MIDI import, copy-paste, or preset loading triggers dedup check
+- Batch import deduplicates all chords before adding to bank
+- Shows summary: "X new chords, Y duplicates found"
+
+**On export:**
+- Deduplication does **not** affect export
+- User gets exactly what they selected/ordered
+- No silent deduplication in export path
+
+## Performance Considerations
+
+Fingerprinting is **non-blocking** and efficient:
+- Computed once on chord creation
+- Cached and reused
+- Lookup is O(1) hash table operation
+- Safe for real-time context (no allocations)
+
+## Example
+
+```
+Bank contains:
+  Cmaj7 (voicing: C E G B, octave: 4-6)
+  Cmaj7 (voicing: C E G B, octave: 4-6)  ← Identical
+  Cmaj7/E (voicing: E G B C, octave: 4-6)  ← Similar (inversion)
+
+Dedup check:
+  Chord 2: "Identical match found. Replace [Yes] [Keep As Variant] [Cancel]"
+  Chord 3: "Similar chord detected (same harmony, different voicing). Merge [Yes] [Keep Both] [Cancel]"
+```
+
+---
+
+# 8. Why This Architecture Matters
 
 Without clear boundaries:
 
@@ -309,7 +423,7 @@ With clear boundaries:
 
 ---
 
-# 8. Long-Term Extensibility
+# 9. Long-Term Extensibility
 
 Because Core is isolated:
 

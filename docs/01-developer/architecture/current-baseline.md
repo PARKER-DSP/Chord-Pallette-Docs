@@ -59,7 +59,12 @@
 - **`Source/domain/ChordModel.*`**
   - Chord domain logic and data structures
   - Chord naming/modifier interpretation
-  - Fingerprint helpers used for uniqueness
+  - **Fingerprint system for deduplication:**
+    - Computes deterministic hash of pitch class set + voicing + operators
+    - Used to detect duplicate/similar chords on capture, import, paste
+    - Unordered pitch class set comparison (C, D, E regardless of register)
+    - Supports "identical" (same voicing) vs "similar" (same harmony, different voicing) detection
+    - Non-blocking, efficient O(1) lookup with caching
 
 - **`Source/ChordModel.h`**
   - Compatibility shim include for legacy include paths
@@ -124,6 +129,35 @@ These subsystems are critical and require extra care during refactoring:
    - Scan/load/editor/rendering ownership
    - Complex cross-thread orchestration
    - Subtle state machine behavior
+
+---
+
+## Chord Deduplication (Current Implementation)
+
+### Current State
+The Phase 0 baseline does **not yet implement deduplication**. Duplicate chord capture is possible and the system has no built-in protection against users accumulating many nearly-identical chord variations in their chord banks.
+
+### Detection Infrastructure
+The groundwork for deduplication exists:
+- **ChordBlock.fingerprint()** – Computes stable hash from pitch class set, voicing, and metadata
+- **ChordLibrary** – Maintains unordered map (no auto-dedup on insert)
+- **Capture flow** – Receives chord data but does not filter duplicates before adding to library
+
+### Phase 1 Implementation Plan
+When deduplication is enabled:
+1. **On Capture**: Fingerprint new chord, check existing library for matches
+   - Identical match → Show toast "Added to favorites" (don't insert duplicate)
+   - Similar chord (±1-2 semitone variance) → Show "Similar chord exists" dialog with comparison UI
+   - New chord → Insert and update fingerprint index
+
+2. **Fingerprint Index**: In-memory LUT mapping fingerprint → ChordID for O(1) collision detection
+
+3. **User Control**: Users can override "smart capture" with "Always Save" button to force capture even if duplicate detected
+
+### Risk Mitigation
+- **Backward Compatibility**: Old presets without fingerprints computed on first load. No file format change required.
+- **Real-Time Safety**: Fingerprinting is non-blocking; performed asynchronously on library thread
+- **Data Loss Prevention**: Dedup is advisory (suggestion to user), not automatic (user always has final choice)
 
 ---
 
