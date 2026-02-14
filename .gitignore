@@ -1,0 +1,5 @@
+/.venv
+/docs to incorporate
+/mkdocs_build.log
+/mkdocs_output.log
+/site
