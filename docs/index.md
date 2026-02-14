@@ -1,7 +1,5 @@
 # ChordPallette Docs
 
-## HOT RELOAD TEST
-
 ![alt text](00-overview/images/1.jpg)
 ![alt text](00-overview/images/2.jpg)
 Welcome to the documentation repo for **ChordPallette** — a performance-driven chord capture + voicing instrument.

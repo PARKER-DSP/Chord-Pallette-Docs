@@ -35,46 +35,50 @@ extra_javascript:
 nav:
   - Home: index.md
   - Overview:
-      - What is ChordPallette?: 00-overview/what-is-chordpallette.md
       - Principles: 00-overview/principles.md
       - Roadmap: 00-overview/roadmap.md
+      - What Is Chordpallette: 00-overview/what-is-chordpallette.md
   - Product:
-      - Positioning: 01-product/positioning.md
+      - Jtbd: 01-product/jtbd.md
       - Personas: 01-product/personas.md
-      - Jobs To Be Done: 01-product/jtbd.md
-  - Features:
-      - Voice Leading:
-          - Overview: 03-features/voice-leading/overview.md
-          - Operator Pack UX: 03-features/voice-leading/operator-pack-ux.md
-      - Operators:
-          - Operator System: 03-features/operators/operator-system.md
-          - Operator Catalog: 03-features/operators/operator-catalog.md
+      - Positioning: 01-product/positioning.md
   - Technical:
-      - Specs:
-          - MIDI Flow & Engine Split: 02-technical/specs/midi-flow-engine-split.md
-          - Data Model: 02-technical/specs/data-model.md
-      - Architecture:
-          - Module Boundaries: 02-technical/architecture/module-boundaries.md
-          - Realtime Safety: 02-technical/architecture/realtime-safety.md
-  - UX & Brand:
+      - Chordpallette Architecture Principles: 02-technical/architecture/ChordPallette_Architecture_Principles.md
+      - Module Boundaries: 02-technical/architecture/module-boundaries.md
+      - Realtime Safety: 02-technical/architecture/realtime-safety.md
+      - Data Model: 02-technical/specs/data-model.md
+      - Midi Flow Engine Split: 02-technical/specs/midi-flow-engine-split.md
+  - Features:
+      - Operator Catalog: 03-features/operators/operator-catalog.md
+      - Operator System: 03-features/operators/operator-system.md
+      - Operator Pack Ux: 03-features/voice-leading/operator-pack-ux.md
+      - Overview: 03-features/voice-leading/overview.md
+  - Ux Brand:
       - Style Guide: 04-ux-brand/style-guide/style-guide.md
-      - UI Patterns: 04-ux-brand/ui/ui-patterns.md
-      - Voice Leading UX: 04-ux-brand/ui/voice-leading-ux.md
+      - Ui Patterns: 04-ux-brand/ui/ui-patterns.md
+      - Voice Leading Ux: 04-ux-brand/ui/voice-leading-ux.md
   - Marketing:
-      - Strategy: 05-marketing/strategy/marketing-strategy.md
-      - Launch Plan: 05-marketing/strategy/launch-plan.md
       - Copy Vault: 05-marketing/copy/copy-vault.md
+      - Launch Plan: 05-marketing/strategy/launch-plan.md
+      - Marketing Strategy: 05-marketing/strategy/marketing-strategy.md
   - Sales:
       - Investor Pitch: 06-sales/investor/investor-pitch.md
-      - One-Pager: 06-sales/investor/one-pager.md
+      - One Pager: 06-sales/investor/one-pager.md
       - Press Kit: 06-sales/press-kit/press-kit.md
   - Changelog:
       - Changelog: 07-changelog/changelog.md
   - Development:
-      - AI Agent Rules: 08-development/ai-agent-rules.md
-      - Invariants: 08-development/invariants.md
-      - Architecture (Dev): 08-development/architecture.md
       - Commit Notes: 08-development/COMMIT_NOTES.md
-      - Release Notes (Dev): 08-development/RELEASE_NOTES.md
       - Pro Commit Guidelines: 08-development/PRO_COMMIT_GUIDELINES.md
+      - Release Notes: 08-development/RELEASE_NOTES.md
+      - Ai Agent Rules: 08-development/ai-agent-rules.md
+      - Architecture: 08-development/architecture.md
+      - Invariants: 08-development/invariants.md
       - Market Strategy Report: 08-development/market-strategy-report.md
+      - Ai Agent Rules: 08-development/originals/AI_AGENT_RULES.md
+      - Commit Notes: 08-development/originals/COMMIT_NOTES.md
+      - Pro Commit Guidelines: 08-development/originals/PRO_COMMIT_GUIDELINES.md
+      - Release Notes: 08-development/originals/RELEASE_NOTES.md
+      - Architecture: 08-development/originals/architecture.md
+      - Invariants: 08-development/originals/invariants.md
+      - Market Strategy Report: 08-development/originals/market-strategy-report.md

@@ -1,5 +1,50 @@
+# Python Virtual Environment
 /.venv
-/docs to incorporate
-/mkdocs_build.log
-/mkdocs_output.log
+/venv
+/env
+
+# MkDocs
 /site
+*.log
+mkdocs_build.log
+mkdocs_output.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+.env
+.env.local
+
+# OS Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+
+# Project-specific
+/docs to incorporate
+/temp
+/tmp
