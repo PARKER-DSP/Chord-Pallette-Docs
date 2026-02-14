@@ -157,8 +157,8 @@ UI depends on Integration (and optionally read-only Core interfaces).
 flowchart TD
 
   UI[UI Layer]
-  INTEG[Integration Layer (JUCE)]
-  CORE[Core Engine (JUCE-free)]
+  INTEG[Integration Layer - JUCE]
+  CORE[Core Engine - JUCE free]
   HOST[DAW Host]
 
   UI --> INTEG
@@ -230,15 +230,15 @@ Core:
 ```mermaid
 flowchart TD
 
-  subgraph HOST
+  subgraph HOST[Host]
     A[MIDI Trigger In]
   end
 
-  subgraph Integration
+  subgraph INTEG_IN[Integration - Input]
     B[Mapping Engine]
   end
 
-  subgraph Core
+  subgraph CORE[Core]
     C[Select Chord Block]
     D[Apply Operator Chain]
     E[Apply Voice Leading]
@@ -246,7 +246,7 @@ flowchart TD
     G[Generate MIDI Events]
   end
 
-  subgraph Integration
+  subgraph INTEG_OUT[Integration - Output]
     H[Inject MIDI to Host Buffer]
   end
 
