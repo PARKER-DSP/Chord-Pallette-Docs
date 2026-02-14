@@ -1,0 +1,8 @@
+#!/bin/sh
+# Auto-stage any new/modified files under docs before commit
+# This ensures new docs are included automatically in commits
+
+git add --all docs
+
+# Allow commit to continue
+exit 0
