@@ -22,11 +22,15 @@ This repo is the **single source of truth** for all human-readable materials for
    ```bash
    python scripts/generate_nav.py
    ```
-3. Start local development server:
+3. Run Mermaid guardrail checks:
+   ```bash
+   python tools/check_mermaid_syntax.py
+   ```
+4. Start local development server:
    ```bash
    mkdocs serve
    ```
-4. Build static site output:
+5. Build static site output:
    ```bash
    mkdocs build
    ```
