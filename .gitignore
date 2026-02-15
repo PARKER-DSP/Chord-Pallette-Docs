@@ -26,6 +26,7 @@ build/
 
 # IDE & Editors
 .vscode/
+!.vscode/tasks.json
 .idea/
 *.swp
 *.swo
