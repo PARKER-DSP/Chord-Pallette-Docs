@@ -47,6 +47,24 @@
         "panel": "shared"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Dev: Rebuild & Restart Server",
+      "type": "shell",
+      "command": "python tools/dev_rebuild.py",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "problemMatcher": [],
+      "runOptions": {
+        "runOn": "folderOpen": false
+      }
     }
   ]
 }
