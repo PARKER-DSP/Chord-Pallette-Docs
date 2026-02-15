@@ -119,3 +119,27 @@ nav:
       - Architecture: 08-development/originals/architecture.md
       - Invariants: 08-development/originals/invariants.md
       - Market Strategy Report: 08-development/originals/market-strategy-report.md
+nav:
+  - Home: index.md
+  - Product:
+      - Foundation:
+          - JTBD: 00-foundation/jtbd.md
+          - Personas: 00-foundation/personas.md
+          - Positioning: 00-foundation/positioning.md
+      - Features:
+          - Overview: 02-features/overview.md
+          - Operators Overview: 02-features/operators/overview.md
+  - Developer:
+      - Architecture:
+          - Overview: 01-developer/architecture/architecture-overview.md
+          - Current Baseline: 01-developer/architecture/current-baseline.md
+      - Guidelines:
+          - Overview: 01-developer/guidelines/overview.md
+          - Code Style Guide: 01-developer/guidelines/ChordPallette_Code_Style_Guide.md
+  - Go To Market:
+      - Marketing Strategy: 03-go-to-market/marketing/marketing-strategy.md
+      - Sales: 03-go-to-market/sales/investor-pitch.md
+  - Design:
+      - UX Overview: 04-ux-design/overview.md
+      - Style Guide: 04-ux-design/style-guide/style-guide.md
+  - Changelog: 07-changelog/changelog.md
