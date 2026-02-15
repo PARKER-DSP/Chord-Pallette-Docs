@@ -1,3 +1,10 @@
+---
+audience: gtm
+status: canonical
+owner: growth
+last_reviewed: 2026-02-15
+---
+
 # ChordPallette — One Pager
 
 **ChordPallette** is a performance-driven chord capture and voicing instrument for producers, keys players, and songwriters.

@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_DIR = ROOT / "docs"
-NAV_SCRIPT = ROOT / "scripts" / "generate_nav.py"
+NAV_SCRIPT = ROOT / "tools" / "docs_tool.py"
 POLL_SECONDS = 1.0
 
 
@@ -25,7 +25,7 @@ def latest_mtime() -> float:
 
 
 def rebuild_nav() -> int:
-    proc = subprocess.run([sys.executable, str(NAV_SCRIPT)], cwd=ROOT)
+    proc = subprocess.run([sys.executable, str(NAV_SCRIPT), 'generate-nav'], cwd=ROOT)
     return proc.returncode
 
 

@@ -1,12 +1,21 @@
+---
+audience: all
+status: canonical
+owner: docs
+last_reviewed: 2026-02-15
+---
+
 # How to Use These Docs
 
-This documentation is organized by audience and by stage of work.
+This repository is structured by audience and workstream.
 
-- **Start Here** for shared context and orientation.
-- **Product Foundation** for strategy, JTBD, and positioning.
-- **Feature Guide** for feature-level product and UX behavior.
-- **Developer Guide** for architecture and engineering rules.
-- **UX & Design** for interface and interaction guidance.
-- **Go-to-Market** for launch, messaging, and sales enablement.
+- **Start Here**: orientation and onboarding path selection.
+- **Product Foundation**: strategy, JTBD, personas, and positioning.
+- **Feature Guide**: feature-level behavior and user experience details.
+- **Developer Guide**: onboarding, architecture, and engineering guardrails.
+- **UX & Design**: interaction and style guidance.
+- **Go-to-Market**: marketing and sales planning artifacts.
+- **Changelog**: release history.
+- **Archive**: historical, non-authoritative material.
 
-If you are new to the project, read **Product Overview** first, then use **Reading Paths** to select a tailored path.
+If you are new, read [Product Overview](product-overview.md) and then select either the [Human Developer Path](../01-developer/onboarding/human-developer-path.md) or [AI Agent Path](../01-developer/onboarding/ai-agent-path.md).

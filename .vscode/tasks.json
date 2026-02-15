@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Docs: Rebuild Navigation",
+      "label": "Docs: Sync Canonical Navigation",
       "type": "shell",
-      "command": "python scripts/generate_nav.py",
+      "command": "python tools/docs_tool.py generate-nav",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -13,7 +13,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Docs: Watch + Auto Rebuild Navigation",
+      "label": "Docs: Watch + Auto Sync Navigation",
       "type": "shell",
       "command": "python tools/watch_nav.py",
       "isBackground": true,
@@ -24,13 +24,10 @@
       "problemMatcher": []
     },
     {
-      "label": "Docs: Serve Local Site",
+      "label": "Docs: Quality Checks",
       "type": "shell",
-      "command": "mkdocs serve",
-      "isBackground": true,
-      "dependsOn": [
-        "Docs: Rebuild Navigation"
-      ],
+      "command": "python tools/docs_tool.py check-yaml && python tools/docs_tool.py check-brand && python tools/docs_tool.py check-links && python tools/check_mermaid_syntax.py",
+      "group": "test",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
@@ -38,12 +35,17 @@
       "problemMatcher": []
     },
     {
-      "label": "Docs: Start Dev (Serve + Auto Nav Rebuild)",
-      "dependsOrder": "parallel",
+      "label": "Docs: Build Site",
+      "type": "shell",
+      "command": "mkdocs build",
       "dependsOn": [
-        "Docs: Serve Local Site",
-        "Docs: Watch + Auto Rebuild Navigation"
+        "Docs: Sync Canonical Navigation",
+        "Docs: Quality Checks"
       ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
       "problemMatcher": []
     }
   ]

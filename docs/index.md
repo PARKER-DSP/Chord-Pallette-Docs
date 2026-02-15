@@ -1,17 +1,27 @@
-# ChordPallette Docs
+---
+audience: all
+status: canonical
+owner: docs
+last_reviewed: 2026-02-15
+---
 
-![alt text](00-overview/images/1.jpg)
-![alt text](00-overview/images/2.jpg)
-Welcome to the documentation repo for **ChordPallette** — a performance-driven chord capture + voicing instrument.
+# ChordPallette Documentation
 
-Use the navigation to find:
-- product definition and principles
-- feature docs (including Voice Leading)
-- technical specs and architecture notes
-- UX/brand guidelines
-- marketing strategy, launch plans, and copy
-- sales and investor materials
+ChordPallette documentation is organized for progressive onboarding and clear ownership.
 
-> Keep everything here **human-readable**, even when it’s technical.
- 
-<!-- reload-test: 2026-02-14  -->
+## Start here
+
+- [Start Here](start-here.md)
+- [Product Foundation](00-foundation/product-overview.md)
+- [Developer Onboarding Hub](01-developer/onboarding/index.md)
+- [Go-to-Market Index](03-go-to-market/index.md)
+
+## Primary sections
+
+- Product strategy and user context
+- Feature behavior and UX expectations
+- Developer architecture and engineering constraints
+- UX and design system guidance
+- Go-to-market strategy and sales enablement
+
+For historical context, use the [Archive (Non-Authoritative)](archive/index.md).

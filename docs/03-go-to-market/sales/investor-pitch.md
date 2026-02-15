@@ -1,3 +1,10 @@
+---
+audience: gtm
+status: canonical
+owner: growth
+last_reviewed: 2026-02-15
+---
+
 # Investor Pitch
 
 ChordPallette: A performance-driven chord capture and voicing instrument for producers and musicians.

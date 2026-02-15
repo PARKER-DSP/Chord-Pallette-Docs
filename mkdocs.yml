@@ -1,7 +1,6 @@
 site_name: ChordPallette Docs
-site_description: Human-readable product, technical, UX, marketing, and sales documentation for ChordPallette.
+site_description: Professional product, engineering, UX, and GTM documentation for ChordPallette.
 
-# Enable file watching for hot reload
 watch:
   - docs
   - mkdocs.yml
@@ -36,50 +35,63 @@ extra_javascript:
 nav:
   - Home: index.md
   - Start Here:
+      - Start Here Overview: start-here.md
       - Product Overview: 00-foundation/product-overview.md
       - How to Use These Docs: 00-foundation/how-to-use-these-docs.md
-      - Reading Paths (Human & AI Contributor): 00-foundation/reading-paths.md
   - Product Foundation:
-      - Jobs To Be Done (JTBD): 00-foundation/jtbd.md
+      - Foundation Overview: 00-foundation/product-overview.md
+      - Jobs To Be Done: 00-foundation/jtbd.md
       - Personas: 00-foundation/personas.md
       - Positioning: 00-foundation/positioning.md
+      - Reading Paths: 00-foundation/reading-paths.md
   - Feature Guide:
       - Feature Guide Introduction: 02-features/overview.md
       - Voice Leading:
           - Voice Leading Overview: 02-features/voice-leading/overview.md
-          - Operator Pack UX: 02-features/voice-leading/operator-pack-ux.md
+          - Voice Leading Operator Pack UX: 02-features/voice-leading/operator-pack-ux.md
       - Operators:
+          - Operator Overview: 02-features/operators/overview.md
           - Operator System: 02-features/operators/operator-system.md
-          - Operator Catalog: 03-features/operators/operator-catalog.md
+          - Operator Catalog: 02-features/operators/operator-catalog.md
   - Developer Guide:
-      - Developer Onboarding: 01-developer/onboarding.md
+      - Developer Onboarding Overview: 01-developer/onboarding.md
+      - Developer Onboarding Hub: 01-developer/onboarding/index.md
+      - Human Developer Path: 01-developer/onboarding/human-developer-path.md
+      - AI Agent Path: 01-developer/onboarding/ai-agent-path.md
       - Architecture:
+          - Architecture Index: 01-developer/architecture/index.md
           - Architecture Overview: 01-developer/architecture/architecture-overview.md
-          - Core Object Models: 01-developer/architecture/ChordPallette_Core_Object_Models.md
-          - Extended Core Objects: 01-developer/architecture/ChordPallette_Extended_Core_Objects.md
-          - Migration, Serialization, and Undo: 01-developer/architecture/ChordPallette_Migration_Serialization_UndoRedo.md
+          - Architecture Principles: 01-developer/architecture/architecture-principles.md
           - Module Boundaries: 01-developer/architecture/module-boundaries.md
           - Realtime Safety: 01-developer/architecture/realtime-safety.md
           - Current Baseline: 01-developer/architecture/current-baseline.md
-      - Engineering Rules:
-          - Engineering Guidelines Overview: 01-developer/guidelines/overview.md
+          - Core Object Models: 01-developer/architecture/ChordPallette_Core_Object_Models.md
+          - Extended Core Objects: 01-developer/architecture/ChordPallette_Extended_Core_Objects.md
+          - Migration and Serialization: 01-developer/architecture/ChordPallette_Migration_Serialization_UndoRedo.md
+      - Engineering Guidelines:
+          - Guidelines Overview: 01-developer/guidelines/overview.md
           - AI Agent Rules: 01-developer/guidelines/ai-agent-rules.md
           - Invariants: 01-developer/guidelines/invariants.md
-          - Code Style: 01-developer/guidelines/ChordPallette_Code_Style_Guide.md
-          - Documentation Guide: 01-developer/guidelines/ChordPallette_Documentation_Creation_Guide.md
+          - Code Style Guide: 01-developer/guidelines/ChordPallette_Code_Style_Guide.md
+          - Documentation Creation Guide: 01-developer/guidelines/ChordPallette_Documentation_Creation_Guide.md
+          - Documentation Style Guide: 01-developer/guidelines/documentation-style-guide.md
           - Pro Commit Guidelines: 01-developer/guidelines/pro-commit-guidelines.md
   - UX & Design:
-      - UX Overview: 04-ux-design/overview.md
+      - UX and Design Overview: 04-ux-design/overview.md
       - UI Patterns: 04-ux-design/ui/ui-patterns.md
       - Voice Leading UX: 04-ux-design/ui/voice-leading-ux.md
-      - Style Guide: 04-ux-design/style-guide/style-guide.md
+      - Visual Style Guide: 04-ux-design/style-guide/style-guide.md
   - Go-to-Market:
+      - GTM Index: 03-go-to-market/index.md
       - GTM Overview: 03-go-to-market/overview.md
       - Marketing Strategy: 03-go-to-market/marketing/marketing-strategy.md
       - Launch Plan: 03-go-to-market/marketing/launch-plan.md
-      - Copy Vault: 05-marketing/copy/copy-vault.md
-      - Sales Assets:
-          - Sales One Pager: 06-sales/investor/one-pager.md
-          - Investor Pitch Deck: 06-sales/investor/investor-pitch.md
-          - Press Kit: 06-sales/press-kit/press-kit.md
+      - Copy Vault: 03-go-to-market/marketing/copy-vault.md
+      - Market Analysis: 03-go-to-market/market-analysis.md
+      - Sales One Pager: 03-go-to-market/sales/one-pager.md
+      - Investor Pitch Deck: 03-go-to-market/sales/investor-pitch.md
+      - Press Kit: 03-go-to-market/sales/press-kit.md
   - Changelog: 07-changelog/changelog.md
+  - Archive:
+      - Archive Index: archive/index.md
+      - Migration Summary: archive/migration-summary.md

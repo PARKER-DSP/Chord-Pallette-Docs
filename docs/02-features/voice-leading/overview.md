@@ -1,3 +1,10 @@
+---
+audience: product
+status: canonical
+owner: product
+last_reviewed: 2026-02-15
+---
+
 # 🎹 Voice Leading — The Secret to Chords That *Flow*
 
 You don't just want chords.  
