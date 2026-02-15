@@ -14,6 +14,7 @@ theme:
     - navigation.top
     - toc.follow
     - content.code.copy
+
 markdown_extensions:
   - admonition
   - toc:
@@ -34,112 +35,51 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - Foundation:
-      - Jtbd: 00-foundation/jtbd.md
+  - Start Here:
+      - Product Overview: 00-foundation/product-overview.md
+      - How to Use These Docs: 00-foundation/how-to-use-these-docs.md
+      - Reading Paths (Human & AI Contributor): 00-foundation/reading-paths.md
+  - Product Foundation:
+      - Jobs To Be Done (JTBD): 00-foundation/jtbd.md
       - Personas: 00-foundation/personas.md
       - Positioning: 00-foundation/positioning.md
-      - Product Overview: 00-foundation/product-overview.md
-  - Overview:
-      - Principles: 00-overview/principles.md
-      - Roadmap: 00-overview/roadmap.md
-      - What Is Chordpallette: 00-overview/what-is-chordpallette.md
-  - Developer:
-      - Chordpallette Core Object Models: 01-developer/architecture/ChordPallette_Core_Object_Models.md
-      - Chordpallette Extended Core Objects: 01-developer/architecture/ChordPallette_Extended_Core_Objects.md
-      - Chordpallette Migration Serialization Undoredo: 01-developer/architecture/ChordPallette_Migration_Serialization_UndoRedo.md
-      - Architecture Overview: 01-developer/architecture/architecture-overview.md
-      - Current Baseline: 01-developer/architecture/current-baseline.md
-      - Module Boundaries: 01-developer/architecture/module-boundaries.md
-      - Realtime Safety: 01-developer/architecture/realtime-safety.md
-      - Chordpallette Code Style Guide: 01-developer/guidelines/ChordPallette_Code_Style_Guide.md
-      - Chordpallette Documentation Creation Guide: 01-developer/guidelines/ChordPallette_Documentation_Creation_Guide.md
-      - Ai Agent Rules: 01-developer/guidelines/ai-agent-rules.md
-      - Invariants: 01-developer/guidelines/invariants.md
-      - Overview: 01-developer/guidelines/overview.md
-      - Pro Commit Guidelines: 01-developer/guidelines/pro-commit-guidelines.md
-  - Product:
-      - Jtbd: 01-product/jtbd.md
-      - Personas: 01-product/personas.md
-      - Positioning: 01-product/positioning.md
-  - Features:
-      - Overview: 02-features/overview.md
-      - Operator System: 02-features/operators/operator-system.md
-      - Overview: 02-features/operators/overview.md
-      - Operator Pack Ux: 02-features/voice-leading/operator-pack-ux.md
-      - Overview: 02-features/voice-leading/overview.md
-  - Technical:
-      - Chordpallette Architecture Principles: 02-technical/architecture/ChordPallette_Architecture_Principles.md
-      - Module Boundaries: 02-technical/architecture/module-boundaries.md
-      - Realtime Safety: 02-technical/architecture/realtime-safety.md
-      - Data Model: 02-technical/specs/data-model.md
-      - Midi Flow Engine Split: 02-technical/specs/midi-flow-engine-split.md
-  - Features:
-      - Operator Catalog: 03-features/operators/operator-catalog.md
-      - Operator System: 03-features/operators/operator-system.md
-      - Operator Pack Ux: 03-features/voice-leading/operator-pack-ux.md
-      - Overview: 03-features/voice-leading/overview.md
-  - Go To Market:
-      - Overview: 03-go-to-market/overview.md
-      - Launch Plan: 03-go-to-market/marketing/launch-plan.md
-      - Marketing Strategy: 03-go-to-market/marketing/marketing-strategy.md
-      - Overview: 03-go-to-market/marketing/overview.md
-      - Investor Pitch: 03-go-to-market/sales/investor-pitch.md
-      - One Pager: 03-go-to-market/sales/one-pager.md
-  - Ux Brand:
-      - Style Guide: 04-ux-brand/style-guide/style-guide.md
-      - Ui Patterns: 04-ux-brand/ui/ui-patterns.md
-      - Voice Leading Ux: 04-ux-brand/ui/voice-leading-ux.md
-  - Ux Design:
-      - Overview: 04-ux-design/overview.md
-      - Style Guide: 04-ux-design/style-guide/style-guide.md
-      - Ui Patterns: 04-ux-design/ui/ui-patterns.md
-      - Voice Leading Ux: 04-ux-design/ui/voice-leading-ux.md
-  - Marketing:
-      - Copy Vault: 05-marketing/copy/copy-vault.md
-      - Launch Plan: 05-marketing/strategy/launch-plan.md
-      - Marketing Strategy: 05-marketing/strategy/marketing-strategy.md
-  - Sales:
-      - Investor Pitch: 06-sales/investor/investor-pitch.md
-      - One Pager: 06-sales/investor/one-pager.md
-      - Press Kit: 06-sales/press-kit/press-kit.md
-  - Changelog:
-      - Changelog: 07-changelog/changelog.md
-  - Development:
-      - Commit Notes: 08-development/COMMIT_NOTES.md
-      - Pro Commit Guidelines: 08-development/PRO_COMMIT_GUIDELINES.md
-      - Release Notes: 08-development/RELEASE_NOTES.md
-      - Ai Agent Rules: 08-development/ai-agent-rules.md
-      - Architecture: 08-development/architecture.md
-      - Invariants: 08-development/invariants.md
-      - Market Strategy Report: 08-development/market-strategy-report.md
-      - Ai Agent Rules: 08-development/originals/AI_AGENT_RULES.md
-      - Commit Notes: 08-development/originals/COMMIT_NOTES.md
-      - Pro Commit Guidelines: 08-development/originals/PRO_COMMIT_GUIDELINES.md
-      - Release Notes: 08-development/originals/RELEASE_NOTES.md
-      - Architecture: 08-development/originals/architecture.md
-      - Invariants: 08-development/originals/invariants.md
-      - Market Strategy Report: 08-development/originals/market-strategy-report.md
-nav:
-  - Home: index.md
-  - Product:
-      - Foundation:
-          - JTBD: 00-foundation/jtbd.md
-          - Personas: 00-foundation/personas.md
-          - Positioning: 00-foundation/positioning.md
-      - Features:
-          - Overview: 02-features/overview.md
-          - Operators Overview: 02-features/operators/overview.md
-  - Developer:
+  - Feature Guide:
+      - Feature Guide Introduction: 02-features/overview.md
+      - Voice Leading:
+          - Voice Leading Overview: 02-features/voice-leading/overview.md
+          - Operator Pack UX: 02-features/voice-leading/operator-pack-ux.md
+      - Operators:
+          - Operator System: 02-features/operators/operator-system.md
+          - Operator Catalog: 03-features/operators/operator-catalog.md
+  - Developer Guide:
+      - Developer Onboarding: 01-developer/onboarding.md
       - Architecture:
-          - Overview: 01-developer/architecture/architecture-overview.md
+          - Architecture Overview: 01-developer/architecture/architecture-overview.md
+          - Core Object Models: 01-developer/architecture/ChordPallette_Core_Object_Models.md
+          - Extended Core Objects: 01-developer/architecture/ChordPallette_Extended_Core_Objects.md
+          - Migration, Serialization, and Undo: 01-developer/architecture/ChordPallette_Migration_Serialization_UndoRedo.md
+          - Module Boundaries: 01-developer/architecture/module-boundaries.md
+          - Realtime Safety: 01-developer/architecture/realtime-safety.md
           - Current Baseline: 01-developer/architecture/current-baseline.md
-      - Guidelines:
-          - Overview: 01-developer/guidelines/overview.md
-          - Code Style Guide: 01-developer/guidelines/ChordPallette_Code_Style_Guide.md
-  - Go To Market:
-      - Marketing Strategy: 03-go-to-market/marketing/marketing-strategy.md
-      - Sales: 03-go-to-market/sales/investor-pitch.md
-  - Design:
+      - Engineering Rules:
+          - Engineering Guidelines Overview: 01-developer/guidelines/overview.md
+          - AI Agent Rules: 01-developer/guidelines/ai-agent-rules.md
+          - Invariants: 01-developer/guidelines/invariants.md
+          - Code Style: 01-developer/guidelines/ChordPallette_Code_Style_Guide.md
+          - Documentation Guide: 01-developer/guidelines/ChordPallette_Documentation_Creation_Guide.md
+          - Pro Commit Guidelines: 01-developer/guidelines/pro-commit-guidelines.md
+  - UX & Design:
       - UX Overview: 04-ux-design/overview.md
+      - UI Patterns: 04-ux-design/ui/ui-patterns.md
+      - Voice Leading UX: 04-ux-design/ui/voice-leading-ux.md
       - Style Guide: 04-ux-design/style-guide/style-guide.md
+  - Go-to-Market:
+      - GTM Overview: 03-go-to-market/overview.md
+      - Marketing Strategy: 03-go-to-market/marketing/marketing-strategy.md
+      - Launch Plan: 03-go-to-market/marketing/launch-plan.md
+      - Copy Vault: 05-marketing/copy/copy-vault.md
+      - Sales Assets:
+          - Sales One Pager: 06-sales/investor/one-pager.md
+          - Investor Pitch Deck: 06-sales/investor/investor-pitch.md
+          - Press Kit: 06-sales/press-kit/press-kit.md
   - Changelog: 07-changelog/changelog.md
