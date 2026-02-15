@@ -1,3 +1,10 @@
+---
+audience: all
+status: canonical
+owner: docs
+last_reviewed: 2026-02-15
+---
+
 # Reading Paths
 
 ## Human Contributor Path

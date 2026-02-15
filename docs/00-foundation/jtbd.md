@@ -1,3 +1,10 @@
+---
+audience: all
+status: canonical
+owner: docs
+last_reviewed: 2026-02-15
+---
+
 # Jobs To Be Done (ChordPallette)
 
 > **Current Status**: Pre-launch (Foundation Phase) - Only documentation system in place. All below Jobs represent the target product vision and development roadmap.

@@ -1,3 +1,10 @@
+---
+audience: design
+status: canonical
+owner: design
+last_reviewed: 2026-02-15
+---
+
 # UX & Design Overview
 
 Guidelines and specifications for ChordPallette's user interface, interaction design, and visual brand.

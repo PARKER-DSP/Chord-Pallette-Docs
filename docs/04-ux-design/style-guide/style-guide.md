@@ -1,3 +1,10 @@
+---
+audience: design
+status: canonical
+owner: design
+last_reviewed: 2026-02-15
+---
+
 # Style Guide
 
 Visual and interaction guidelines for ChordPallette's user interface.

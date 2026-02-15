@@ -1,3 +1,10 @@
+---
+audience: all
+status: canonical
+owner: docs
+last_reviewed: 2026-02-15
+---
+
 # Target Personas
 
 > **Status**: Starter personas defined. Validation interviews required in Phase 1.

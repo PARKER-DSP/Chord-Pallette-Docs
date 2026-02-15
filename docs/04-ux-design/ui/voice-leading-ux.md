@@ -1,3 +1,10 @@
+---
+audience: design
+status: canonical
+owner: design
+last_reviewed: 2026-02-15
+---
+
 # Voice Leading UX
 
 Detailed interaction design for voice leading controls and feedback.

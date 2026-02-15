@@ -1,3 +1,10 @@
+---
+audience: product
+status: canonical
+owner: product
+last_reviewed: 2026-02-15
+---
+
 # Chord Features Overview
 
 ChordPallette's core capabilities are organized around how chords are captured, managed, transformed, and performed.
@@ -42,4 +49,4 @@ Modular, non-destructive transforms applied to chords. Operators handle everythi
 
 ## Next Steps
 
-See the [Roadmap](../../00-foundation/jtbd.md#phase-roadmap-at-a-glance) for timing and dependencies.
+See the [Roadmap](../00-foundation/jtbd.md#phase-roadmap-at-a-glance) for timing and dependencies.

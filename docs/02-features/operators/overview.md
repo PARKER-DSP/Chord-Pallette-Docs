@@ -1,3 +1,10 @@
+---
+audience: product
+status: canonical
+owner: product
+last_reviewed: 2026-02-15
+---
+
 # Operator Catalog
 
 Complete list of operators available in ChordPallette, organized by category.

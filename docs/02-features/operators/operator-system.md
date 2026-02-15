@@ -1,3 +1,10 @@
+---
+audience: product
+status: canonical
+owner: product
+last_reviewed: 2026-02-15
+---
+
 # Operator System
 
 Operators are modular transforms applied non-destructively to chords.

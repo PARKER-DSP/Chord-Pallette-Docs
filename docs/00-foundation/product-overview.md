@@ -1,3 +1,10 @@
+---
+audience: all
+status: canonical
+owner: docs
+last_reviewed: 2026-02-15
+---
+
 # Product Foundation Overview
 
 Welcome to ChordPallette's product foundation documentation. This section contains the strategic and contextual information that guides all development, design, and go-to-market decisions.

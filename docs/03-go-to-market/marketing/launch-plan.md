@@ -1,3 +1,10 @@
+---
+audience: gtm
+status: canonical
+owner: growth
+last_reviewed: 2026-02-15
+---
+
 # Launch Plan
 
 Phased launch strategy for ChordPallette.

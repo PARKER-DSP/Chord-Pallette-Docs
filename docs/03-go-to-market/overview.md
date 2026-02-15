@@ -1,3 +1,10 @@
+---
+audience: gtm
+status: canonical
+owner: growth
+last_reviewed: 2026-02-15
+---
+
 # Go-to-Market Overview
 
 Combined marketing and sales strategy and materials for ChordPallette's launch and growth.

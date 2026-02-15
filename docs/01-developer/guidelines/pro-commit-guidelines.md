@@ -130,4 +130,4 @@ Use this exact structure in `Docs/COMMIT_NOTES.md`:
 
 - [AI Agent Rules](ai-agent-rules.md) – working style and checks for autonomous agents
 - [Invariants](invariants.md) – backward compatibility and safety guardrails
-- [Commit Notes Log](../../../08-development/COMMIT_NOTES.md) – historical record of all commits
+- [Commit Notes Log](../../archive/legacy/08-development/COMMIT_NOTES.md) – historical record of all commits

@@ -1,3 +1,10 @@
+---
+audience: design
+status: canonical
+owner: design
+last_reviewed: 2026-02-15
+---
+
 # UI Patterns
 
 Specifications for key user interface components and interaction patterns in ChordPallette.

@@ -1,3 +1,10 @@
+---
+audience: product
+status: canonical
+owner: product
+last_reviewed: 2026-02-15
+---
+
 # Voice Leading Operator Pack — UX & System Design
 
 > This document details how voice leading will work as a user-facing feature, including interaction design, architectural strategy, and implementation recommendations.
