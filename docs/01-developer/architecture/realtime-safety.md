@@ -1,47 +1,55 @@
-# Realtime Safety Constraints
+---
+audience: developers
+status: canonical
+owner: engineering
+last_reviewed: 2026-02-16
+---
 
-## Core Rules
+# Realtime Safety
 
-### No Allocations in `processBlock`
-- All buffers and candidate arrays must be preallocated
-- Use fixed-size containers or pre-sized vectors
-- Do not use `new`, `malloc`, or dynamic resizing during audio processing
+This page defines the minimum realtime safety contract for audio-thread code paths.
 
-### No Locks/Mutexes on Audio Thread
-- Avoid all blocking synchronization primitives
-- Use atomics or lock-free queues for UI ↔ audio thread communication
-- Keep audio thread paths interrupt-safe
+## Hard Rules (Audio Thread)
 
-### Preallocate Event Buffers and Candidate Arrays
-- Voice leading candidates: max 32–64 per trigger
-- MIDI event buffers: fixed size per processBlock
-- Result caches: persistent, pre-sized
+- No heap allocation or container growth.
+- No locks, waits, sleeps, or blocking synchronization.
+- No file IO, network IO, or host/UI API calls that may block.
+- No string-heavy formatting or debug logging in hot path.
+- No unbounded search loops.
 
-## Bounded Work
+## Required Design Patterns
 
-### Voice Leading
-- Cap voice leading candidates per trigger (e.g., 32–64)
-- Use simple cost function, not exhaustive search
-- Prefer cache hits for common transitions
-- Predictable runtime regardless of chord complexity
+- Preallocate buffers and candidate arrays before playback.
+- Use immutable snapshots and atomic pointer/version swap for config updates.
+- Bound candidate count and operator passes per block.
+- Keep heavy analysis and export preparation off the audio thread.
 
-### Operator Chain
-- Fixed number of operators per chain
-- Each operator has bounded execution time
-- No variable-length loops without iteration caps
+## Suggested Voice-Leading Budgets
 
-### Bank Modifiers
-- Apply in streaming fashion, not all-at-once
-- Keep per-note operations minimal
-- Cache results for repeated patterns
+- Candidate pool cap: `32-64` per trigger.
+- Operator chain: fixed max operator count in RT mode.
+- Scoring: linear in candidate count with bounded per-candidate cost.
 
-## Testing Realtime Safety
-- Run under worst-case CPU load
-- Use profiling tools to verify allocation-free paths
-- Log audio thread violations in debug builds
-- Never commit code that allocates on audio thread
+If your use case exceeds these bounds, move that work to background precompute.
 
-## Isolation Strategy
-- Keep heavy operations (plugin scanning, UI updates, file I/O) off audio thread
-- Use message-thread callbacks for non-realtime work
-- Background worker threads for async scans/loading
+## Validation Checklist
+
+1. Stress test with worst-case buffer sizes and dense MIDI input.
+2. Verify no allocations in audio callback path.
+3. Verify no contended lock acquisition on audio thread.
+4. Verify deterministic output across repeated runs with same input.
+5. Record and regress-test max processing time per block.
+
+## Handoff Rules
+
+- UI writes new config snapshot, then performs atomic swap.
+- Audio thread reads only fully-built immutable snapshots.
+- Worker results are promoted through Integration-safe staging.
+
+Detailed ownership examples are in [Threading and Lifecycle](threading-and-lifecycle.md).
+
+## Related Docs
+
+- [Architecture Principles](architecture-principles.md)
+- [Module Boundaries](module-boundaries.md)
+- [Invariants](../guidelines/invariants.md)

@@ -104,7 +104,7 @@ All visual and interaction feedback should enhance the musical experience, not d
 
 ## Related Sections
 
-- **[Foundation](../00-foundation/)** – Product vision and user needs
-- **[Features](../02-features/)** – What's being designed (operators, voice leading)
-- **[Go-to-Market](../03-go-to-market/)** – Brand and positioning
-- **[Developer](../01-developer/)** – Technical architecture and constraints
+- **[Foundation](../00-foundation/product-overview.md)** – Product vision and user needs
+- **[Features](../02-features/overview.md)** – What's being designed (operators, voice leading)
+- **[Go-to-Market](../03-go-to-market/index.md)** – Brand and positioning
+- **[Developer](../01-developer/onboarding.md)** – Technical architecture and constraints

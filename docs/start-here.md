@@ -21,3 +21,4 @@ Use this page to choose the right onboarding path and avoid outdated material.
 
 - Treat pages outside the main navigation as non-authoritative unless explicitly linked from a canonical section.
 - Use the [Archive](archive/index.md) only for historical reference.
+- Use [Vision Lab](05-vision-lab/index.md) for experimental concepts that are not committed roadmap work.

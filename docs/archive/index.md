@@ -12,4 +12,4 @@ last_reviewed: 2026-02-15
 Use archive pages for context only. Current guidance lives in canonical sections linked from primary navigation.
 
 - [Migration Summary](migration-summary.md)
-- [Legacy Tree](legacy/)
+- [Legacy Tree](legacy/index.md)

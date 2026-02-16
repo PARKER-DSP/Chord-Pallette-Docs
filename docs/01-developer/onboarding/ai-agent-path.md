@@ -2,7 +2,7 @@
 audience: ai_agents
 status: canonical
 owner: engineering
-last_reviewed: 2026-02-15
+last_reviewed: 2026-02-16
 ---
 
 # AI Agent Path
@@ -15,10 +15,16 @@ Follow this sequence before editing files:
 4. [Realtime Safety](../architecture/realtime-safety.md)
 5. [AI Agent Rules](../guidelines/ai-agent-rules.md)
 6. [Invariants](../guidelines/invariants.md)
-7. [Documentation Style Guide](../guidelines/documentation-style-guide.md)
+7. [Documentation Creation Guide](../guidelines/ChordPallette_Documentation_Creation_Guide.md)
+8. [Documentation Style Guide](../guidelines/documentation-style-guide.md)
 
 ## Guardrails
 
 - Make one canonical change per topic domain.
 - Move legacy duplicates into `docs/archive/legacy/`.
 - Maintain internal links and run local quality checks before commit.
+
+## Required Validation
+
+- `python tools/docs_tool.py check-all`
+- `python tools/docs_tool.py build`

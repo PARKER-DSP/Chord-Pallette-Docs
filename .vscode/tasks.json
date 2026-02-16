@@ -2,69 +2,47 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Docs: Sync Canonical Navigation",
+      "label": "Docs: Install Dependencies",
+      "type": "shell",
+      "command": "python -m pip install -r requirements-dev.txt",
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: Generate Nav",
       "type": "shell",
       "command": "python tools/docs_tool.py generate-nav",
       "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      },
       "problemMatcher": []
     },
     {
-      "label": "Docs: Watch + Auto Sync Navigation",
+      "label": "Docs: Validate",
       "type": "shell",
-      "command": "python tools/watch_nav.py",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Docs: Quality Checks",
-      "type": "shell",
-      "command": "python tools/docs_tool.py check-yaml && python tools/docs_tool.py check-brand && python tools/docs_tool.py check-links && python tools/check_mermaid_syntax.py",
+      "command": "python tools/docs_tool.py check-all",
       "group": "test",
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      },
       "problemMatcher": []
     },
     {
-      "label": "Docs: Build Site",
+      "label": "Docs: Build",
       "type": "shell",
-      "command": "mkdocs build",
+      "command": "python tools/docs_tool.py build",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: Serve",
+      "type": "shell",
+      "command": "python tools/docs_tool.py serve",
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: CI Local",
+      "dependsOrder": "sequence",
       "dependsOn": [
-        "Docs: Sync Canonical Navigation",
-        "Docs: Quality Checks"
+        "Docs: Generate Nav",
+        "Docs: Validate",
+        "Docs: Build"
       ],
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      },
       "problemMatcher": []
-    },
-    {
-      "label": "Dev: Rebuild & Restart Server",
-      "type": "shell",
-      "command": "python tools/dev_rebuild.py",
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      },
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "focus": true
-      },
-      "problemMatcher": [],
-      "runOptions": {
-        "runOn": "folderOpen": false
-      }
     }
   ]
 }

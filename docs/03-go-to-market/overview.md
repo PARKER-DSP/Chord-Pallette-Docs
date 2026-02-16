@@ -17,7 +17,7 @@ Focus on content, community, and awareness building.
 
 - **[Marketing Strategy](marketing/marketing-strategy.md)** – Channels, positioning, messaging pillars, success metrics
 - **[Launch Plan](marketing/launch-plan.md)** – Phased timeline from prelaunch through post-launch growth
-- **[Copy Vault](marketing/overview.md)** – Key messaging, taglines, value propositions, CTAs
+- **[Copy Vault](marketing/copy-vault.md)** – Key messaging, taglines, value propositions, CTAs
 
 ---
 
@@ -27,7 +27,7 @@ Focus on investor relations, partnerships, and early adoption.
 
 - **[Investor Pitch](sales/investor-pitch.md)** – Full fundraising pitch with market opportunity and business model
 - **[One-Pager](sales/one-pager.md)** – Executive summary for quick sharing and partnerships
-- **[Press Kit](sales/)** *(TBD)* – Media materials, images, founder quotes, case studies
+- **[Press Kit](sales/press-kit.md)** *(TBD)* – Media materials, images, founder quotes, case studies
 
 ---
 
@@ -39,18 +39,18 @@ Focus on investor relations, partnerships, and early adoption.
 3. Context: [Product Roadmap](../00-foundation/jtbd.md) + [Positioning](../00-foundation/positioning.md)
 
 ### For Marketing/Content
-1. Start: [Copy Vault](marketing/overview.md)
+1. Start: [Copy Vault](marketing/copy-vault.md)
 2. Strategy: [Marketing Strategy](marketing/marketing-strategy.md)
 3. Execution: [Launch Plan](marketing/launch-plan.md)
 
 ### For Partners/Affiliates
 1. Start: [Marketing Strategy](marketing/marketing-strategy.md) (partner section)
-2. Materials: [Copy Vault](marketing/overview.md)
+2. Materials: [Copy Vault](marketing/copy-vault.md)
 3. Pitch: [One-Pager](sales/one-pager.md)
 
 ### For Product/Founder Team
 1. Overall: [Marketing Strategy](marketing/marketing-strategy.md)
-2. Messaging: [Copy Vault](marketing/overview.md)
+2. Messaging: [Copy Vault](marketing/copy-vault.md)
 3. Timeline: [Launch Plan](marketing/launch-plan.md)
 
 ---
@@ -88,7 +88,7 @@ Focus on investor relations, partnerships, and early adoption.
 
 ## Related Sections
 
-- **[Foundation](../00-foundation/)** – Product strategy, JTBD, personas, positioning
-- **[Features](../02-features/)** – What we're building (voice leading, operators, capture)
-- **[Developer](../01-developer/)** – Architecture, guidelines, roadmap execution
-- **[UX/Design](../04-ux-design/)** – Brand, style guide, UI patterns
+- **[Foundation](../00-foundation/product-overview.md)** – Product strategy, JTBD, personas, positioning
+- **[Features](../02-features/overview.md)** – What we're building (voice leading, operators, capture)
+- **[Developer](../01-developer/onboarding.md)** – Architecture, guidelines, roadmap execution
+- **[UX/Design](../04-ux-design/overview.md)** – Brand, style guide, UI patterns

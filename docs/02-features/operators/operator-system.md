@@ -2,7 +2,7 @@
 audience: product
 status: canonical
 owner: product
-last_reviewed: 2026-02-15
+last_reviewed: 2026-02-16
 ---
 
 # Operator System
@@ -45,3 +45,5 @@ The operator system is designed to support future additions:
 - Custom user-defined operators (future)
 
 See [Operator Catalog](operator-catalog.md) for the current list of available operators.
+
+See [Playability Overlays Spec](../../01-developer/architecture/playability-overlays-spec.md) for bank-level overlay behavior.

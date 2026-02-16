@@ -1,5 +1,11 @@
-# ChordPallette — Code Style Guide
-_Last updated: 2026-02-14_
+---
+audience: developers
+status: canonical
+owner: engineering
+last_reviewed: 2026-02-16
+---
+
+# ChordPallette - Code Style Guide
 
 This guide applies to human developers and AI agents. It enforces readability, maintainability, realtime safety, and strict Core vs Integration boundaries.
 

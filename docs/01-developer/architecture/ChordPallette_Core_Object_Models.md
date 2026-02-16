@@ -1,4 +1,11 @@
-# ChordPallette — Core Object Models (Master)
+---
+audience: developers
+status: canonical
+owner: engineering
+last_reviewed: 2026-02-16
+---
+
+# ChordPallette - Core Object Models (Master)
 _Last updated: 2026-02-14_
 
 This document consolidates the **canonical data models** for ChordPallette and aligns them for:

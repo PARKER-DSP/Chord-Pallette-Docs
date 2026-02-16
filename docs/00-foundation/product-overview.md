@@ -49,19 +49,19 @@ We are in **pre-launch preparation**. Only the documentation system is in place.
 - Use [Positioning](positioning.md) to guide GTM decisions
 
 **For Engineers / Architects:**
-- Read [JTBD](jtbd.md#-jobs-by-development-phase) section on phasing
+- Read [JTBD](jtbd.md) for phased priorities
 - Reference [Personas](personas.md) when making tradeoff decisions (e.g., Producer vs. Keys Player priorities)
 - Check [Positioning](positioning.md) for non-functional requirements and user expectations
 
 **For Marketing / Sales:**
 - Study [Personas](personas.md) for messaging and channel strategy
 - Use [Positioning](positioning.md) for copy and competitive positioning
-- Reference [JTBD](jtbd.md#-success-metrics-future) for success metrics and launch readiness criteria
+- Reference [JTBD](jtbd.md) for success metrics and launch readiness criteria
 
 **For New Team Members:**
 - Start here for product context
-- Then read the [Technical Architecture](../01-developer/architecture/) to understand the system
-- Review [Development Guidelines](../01-developer/guidelines/) for contribution practices
+- Then read the [Technical Architecture](../01-developer/architecture/index.md) to understand the system
+- Review [Development Guidelines](../01-developer/guidelines/overview.md) for contribution practices
 
 ---
 
@@ -90,7 +90,7 @@ We are in **pre-launch preparation**. Only the documentation system is in place.
 
 ## Quick Links
 
-- **Detailed Development Roadmap** → [Development Guidelines](../01-developer/guidelines/) (TBD)
-- **Technical Architecture** → [Architecture Overview](../01-developer/architecture/)
-- **Feature Specifications** → [Features](../02-features/)
-- **Go-to-Market Strategy** → [Marketing & Sales](../03-go-to-market/)
+- **Detailed Development Roadmap** -> [Development Guidelines](../01-developer/guidelines/overview.md) (TBD)
+- **Technical Architecture** -> [Architecture Overview](../01-developer/architecture/index.md)
+- **Feature Specifications** -> [Features](../02-features/overview.md)
+- **Go-to-Market Strategy** -> [Marketing and Sales](../03-go-to-market/index.md)

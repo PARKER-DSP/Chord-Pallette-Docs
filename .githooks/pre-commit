@@ -1,70 +1,25 @@
 #!/bin/sh
-# Tier 1: Enhanced pre-commit automation for documentation
-# 1. Auto-stages all docs changes
-# 2. Regenerates nav from canonical structure (tools/docs_tool.py)
-# 3. Runs validation checks (YAML, brand, links)
-# 4. Stages regenerated mkdocs.yml
-# 5. Blocks commit if validation fails
-
 set -e
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+if command -v python3 >/dev/null 2>&1; then
+  PYTHON_BIN="python3"
+elif command -v python >/dev/null 2>&1; then
+  PYTHON_BIN="python"
+else
+  echo "[pre-commit] Python is required but was not found."
+  exit 1
+fi
 
-echo "────────────────────────────────────────────────────────"
-echo "📋 Pre-commit: Docs Automation & Validation"
-echo "────────────────────────────────────────────────────────"
-
-# 1. Auto-stage all docs changes
-echo "✓ Staging docs/ directory changes..."
+echo "[pre-commit] Staging docs changes..."
 git add --all docs
 
-# 2. Regenerate nav from canonical structure
-echo "✓ Regenerating navigation structure..."
-python3 tools/docs_tool.py generate-nav
-if [ $? -eq 0 ]; then
-    echo "  ✅ Navigation synced to canonical structure"
-else
-    echo "  ❌ Failed to regenerate navigation"
-    exit 1
-fi
+echo "[pre-commit] Synchronizing navigation..."
+"$PYTHON_BIN" tools/docs_tool.py generate-nav
 
-# 3. Run validation checks
-echo ""
-echo "Running validation checks..."
+echo "[pre-commit] Running docs validation..."
+"$PYTHON_BIN" tools/docs_tool.py check-all
 
-# Check YAML structure
-echo "  • Checking mkdocs.yml integrity..."
-python3 tools/docs_tool.py check-yaml
-YAML_RESULT=$?
-
-# Check brand consistency  
-echo "  • Checking brand consistency..."
-python3 tools/docs_tool.py check-brand
-BRAND_RESULT=$?
-
-# Check internal links
-echo "  • Checking internal links..."
-python3 tools/docs_tool.py check-links
-LINKS_RESULT=$?
-
-# 4. Stage regenerated mkdocs.yml
-echo ""
-echo "✓ Staging regenerated mkdocs.yml..."
+echo "[pre-commit] Staging generated mkdocs.yml..."
 git add mkdocs.yml
 
-# 5. Report results and decide whether to allow commit
-echo ""
-echo "────────────────────────────────────────────────────────"
-
-if [ $YAML_RESULT -ne 0 ] || [ $BRAND_RESULT -ne 0 ] || [ $LINKS_RESULT -ne 0 ]; then
-    echo -e "${RED}❌ Validation failed. Fix issues above and try again.${NC}"
-    exit 1
-fi
-
-echo -e "${GREEN}✅ All checks passed! Commit will proceed.${NC}"
-echo "────────────────────────────────────────────────────────"
-exit 0
+echo "[pre-commit] Docs checks passed."

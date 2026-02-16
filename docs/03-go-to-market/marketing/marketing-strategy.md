@@ -138,4 +138,4 @@ See [Product Positioning](../../00-foundation/positioning.md) for full competiti
 - [Launch Plan](launch-plan.md) – Detailed timeline and activities
 - [Copy Vault](copy-vault.md) – Key messaging and CTAs
 - [Product Positioning](../../00-foundation/positioning.md) – Differentiation and market position
-- [Sales Documentation](../sales/) – Investor pitch, one-pagers, press kit
+- [Sales Documentation](../sales/one-pager.md) – Investor pitch, one-pagers, press kit

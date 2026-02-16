@@ -1,4 +1,11 @@
-# ChordPallette — Migration, Serialization Contract, and Undo/Redo Reducer Model
+---
+audience: developers
+status: canonical
+owner: engineering
+last_reviewed: 2026-02-16
+---
+
+# ChordPallette - Migration, Serialization Contract, and Undo/Redo Reducer Model
 _Last updated: 2026-02-14_
 
 This document covers three engineering pillars required for a commercial-grade plugin:

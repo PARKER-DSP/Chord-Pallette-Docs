@@ -114,4 +114,4 @@ Phased launch strategy for ChordPallette.
 
 - [Marketing Strategy](marketing-strategy.md) – Overarching GTM approach
 - [Copy Vault](copy-vault.md) – Key messaging and CTAs
-- [Sales Materials](../sales/) – Investor pitch, one-pagers, press kit
+- [Sales Materials](../sales/one-pager.md) – Investor pitch, one-pagers, press kit

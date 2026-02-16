@@ -1,4 +1,11 @@
-# ChordPallette — Extended Core Objects
+---
+audience: developers
+status: canonical
+owner: engineering
+last_reviewed: 2026-02-16
+---
+
+# ChordPallette - Extended Core Objects
 _Last updated: 2026-02-14_
 
 This document defines additional core-level objects required to complete the system:

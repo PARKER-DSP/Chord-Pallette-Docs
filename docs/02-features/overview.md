@@ -13,7 +13,7 @@ ChordPallette's core capabilities are organized around how chords are captured, 
 
 ## Key Feature Areas
 
-### [Voice Leading](voice-leading/)
+### [Voice Leading](voice-leading/overview.md)
 
 The sophisticated heart of ChordPallette. Voice leading ensures that chord transitions feel smooth and musical, with natural note movement from one chord to the next.
 
@@ -23,7 +23,7 @@ The sophisticated heart of ChordPallette. Voice leading ensures that chord trans
 
 ---
 
-### [Operators](operators/)
+### [Operators](operators/overview.md)
 
 Modular, non-destructive transforms applied to chords. Operators handle everything from voicing decisions (inversions, spreads) to performance behaviors (arpeggios, humanization).
 
@@ -49,4 +49,4 @@ Modular, non-destructive transforms applied to chords. Operators handle everythi
 
 ## Next Steps
 
-See the [Roadmap](../00-foundation/jtbd.md#phase-roadmap-at-a-glance) for timing and dependencies.
+See the [Roadmap](../00-foundation/jtbd.md) for timing and dependencies.

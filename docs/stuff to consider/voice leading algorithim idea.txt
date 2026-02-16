@@ -1,0 +1,4916 @@
+🧩 What “Original” Might Mean in This Context
+The phrase you highlighted appears in the Open Questions section:
+
+Define “Original”: anchor voicing/register identity vs chord spelling vs both. 
+
+This question arises because the system introduces several layers of chord identity and voicing earlier in the document. To understand “Original,” you have to look at how the page distinguishes anchor, realized, memory, frozen, and baked voicings.
+
+Below is a breakdown of what the devlog is wrestling with.
+
+🎼 The Three Possible Meanings of “Original”
+The question is essentially:
+When a user selects the “Original” playability operator (Up / Down / Steady / Original), what exactly is the system supposed to return to?
+
+Based on the surrounding content, “Original” could refer to one of three things:
+
+1. Anchor Voicing / Register Identity
+This is the strongest candidate, because the devlog repeatedly treats the anchor as the stable, non-contextual identity of a chord block.
+
+Anchor voicing is defined earlier as:
+The chord’s “home” identity
+
+A stable reference point
+
+Not dependent on voice-leading context
+
+Not rewritten retroactively 
+
+If “Original” means anchor, then selecting “Original” would bias the algorithm toward:
+
+Returning to the anchor register
+
+Returning to the anchor spacing
+
+Returning to the anchor top note / bass
+
+Ignoring memory-based or context-based deviations
+
+This interpretation fits the bank-level “playability overlays” concept, where “Original” is a bias term that nudges the algorithm toward a known baseline.
+
+2. Chord Spelling Only (Abstract Harmony)
+Another possibility is that “Original” refers not to a voicing at all, but to the pure harmonic identity:
+
+Root
+
+Quality
+
+Extensions
+
+Alterations
+
+Inversions (maybe)
+
+This would mean “Original” = “don’t apply voice-leading transformations that alter the chord’s harmonic spelling.”
+
+But the devlog makes a strong distinction between:
+
+Harmony (identity)
+
+Voicing (realized notes)
+
+Register (placement)
+
+Operators (transformations)
+
+Because of that separation, “Original = chord spelling” feels too weak to be useful as a performance overlay.
+
+3. Both Anchor Voicing + Chord Spelling
+This is the most literal reading of the question in the devlog:
+
+anchor voicing/register identity vs chord spelling vs both 
+
+This would mean “Original” is a compound definition:
+
+The chord’s harmonic identity
+
+The chord’s anchor voicing
+
+The chord’s anchor register
+
+This interpretation would make “Original” the “return to the canonical version of this chord block,” including both its harmonic and voicing identity.
+
+This is consistent with the “Freeze Recipe vs Bake Voicing” section, where the system distinguishes between:
+
+Anchor chord (identity)
+
+Frozen recipe (operators locked)
+
+Realized voicing (contextual)
+
+Saved variants
+
+Last played voicing 
+
+If “Original” means both anchor spelling + anchor voicing, then it becomes the “reset to canonical form” operator.
+
+🧠 Why This Question Matters in the Devlog
+The devlog is trying to finalize the semantics of bank-level playability overlays:
+
+Up
+
+Down
+
+Steady
+
+Original 
+
+These overlays bias the voice-leading engine during live performance. For the other three overlays, the meaning is clear:
+
+Up → bias toward higher register
+
+Down → bias toward lower register
+
+Steady → bias toward minimal motion
+
+But Original is ambiguous because the system has multiple layers of “identity”:
+
+Harmony identity
+
+Anchor voicing
+
+Anchor register
+
+Frozen recipe
+
+Realized voicing
+
+Memory voicing
+
+The devlog is asking:
+Which of these layers should “Original” pull the algorithm toward?
+
+🎯 The Most Likely Intended Meaning (Based on Context)
+Given the structure of the system and the way “anchor” is used throughout the page, the most coherent interpretation is:
+
+“Original” = Anchor Voicing + Anchor Register (not just chord spelling).
+Why?
+
+The anchor is the only stable, non-contextual reference point defined in the system.
+
+The devlog repeatedly emphasizes that anchor voicings should not be rewritten retroactively.
+
+The playability overlays are meant to bias voicing, not harmony.
+
+Harmony identity is already preserved unless operators change it.
+
+“Original” needs to be musically meaningful during live performance, which requires a voicing target, not just a spelling.
+
+So the devlog is essentially asking:
+
+Should “Original” pull the chord back toward its anchor voicing, its harmonic spelling, or both together as a canonical identity?
+
+And the surrounding content strongly suggests the anchor voicing/register is the intended reference.
+
+If you want, I can help you draft a clean spec definition for “Original” that fits the rest of the system’s architecture.
+
+If you want, I can help you draft a clean spec definition for “Original” that fits the rest of the system’s architecture. please do this
+Below is a clean, unambiguous spec‑ready definition of “Original”, written directly from the surrounding page content and aligned with the architecture described in the devlog .
+
+Spec Definition: “Original” (Bank‑Level Playability Overlay)
+1. Purpose
+“Original” is one of the four bank‑level playability overlays (Up / Down / Steady / Original).
+These overlays bias the voice‑leading engine during live performance without modifying chord‑block data.
+“Original” specifically biases the engine toward the chord block’s canonical identity, as defined below.
+
+2. Definition of “Original”
+“Original” biases the voice‑leading engine toward the chord block’s Anchor Voicing and Anchor Register, without altering the chord’s harmonic spelling.
+
+In other words:
+
+It does not change the chord’s harmony.
+
+It does pull the realized voicing back toward the block’s Anchor Voicing (spacing, register, top/bottom notes).
+
+It does pull the register toward the block’s Anchor Register.
+
+It does not override contextual scoring entirely; it acts as a weighted bias term.
+
+This resolves the devlog’s open question by choosing the interpretation most consistent with the system’s architecture.
+
+3. Rationale (from page content)
+The devlog defines several layers of identity:
+
+Layer	Meaning	Notes
+Anchor Voicing	“Home” identity; stable; non‑contextual	Never rewritten retroactively
+Realized Voicing	Context‑dependent result	Varies with transitions
+Memory Voicing	Last‑played ephemeral state	Performance‑only
+Frozen/Baked	User‑committed artifacts	Not relevant to overlays
+The only stable, non‑contextual reference point is the Anchor Voicing.
+The devlog also states that overlays are bias terms, not destructive edits.
+Therefore “Original” must reference the anchor layer, not the realized or memory layers.
+
+4. Behavioral Specification
+4.1 Bias Targets
+When “Original” is active, the scoring engine adds a weighted pull toward:
+
+Anchor spacing
+
+Anchor register
+
+Anchor top note
+
+Anchor bass
+
+Anchor inversion (if defined)
+
+Harmony is not modified; only voicing/register is biased.
+
+4.2 Interaction with Other Layers
+Does not rewrite the Anchor Voicing.
+
+Does not force exact reproduction; it is a bias, not a command.
+
+Does not override contextual constraints (e.g., spacing rules, genre mode rules).
+
+Does reduce the influence of Memory Voicing.
+
+Does reduce the influence of Up/Down/Steady if they were previously active.
+
+4.3 Scoring Model Integration
+Add a term to the scoring function:
+
+Score
++
+=
+𝑤
+original
+⋅
+distance
+(
+candidate
+,
+anchor
+)
+Where:
+
+𝑤
+original
+ is user‑adjustable intensity.
+
+Distance is computed over register, spacing, and salient anchor features.
+
+5. User‑Facing Description
+“Original” returns the instrument toward the chord’s natural home voicing and register, as originally defined in the bank. It restores the chord’s characteristic shape without overriding musical context.”
+
+6. Why This Definition Works
+This definition:
+
+Matches the devlog’s emphasis on anchor vs realized vs memory distinctions.
+
+Uses the only stable identity layer the system guarantees.
+
+Keeps overlays non‑destructive and performance‑oriented.
+
+Avoids ambiguity between harmony and voicing.
+
+Aligns with the “no retroactive rewriting” rule.
+
+Fits the intended UX: a performer can “reset” the feel without editing the block.
+
+If you want, I can also draft the full Bank Playability Overlays spec (Up / Down / Steady / Original) so the four operators form a coherent, symmetrical system.
+
+please do this
+Absolutely — here is a full, clean, spec‑ready definition of all four Bank‑Level Playability Overlays (Up / Down / Steady / Original), written directly from the page you’re viewing and aligned with its architecture and terminology.
+Everything below is grounded in the content of the devlog entry you have open .
+
+Bank‑Level Playability Overlays — Full Specification
+(Up / Down / Steady / Original)
+
+These overlays are bank‑level performance controls that bias the voice‑leading engine in real time without modifying chord‑block data. They operate as non-destructive scoring biases layered on top of whatever mode (genre/mode rule set) is active.
+
+They exist to improve live playability, reduce UI complexity, and support the “Explore → Discover → Capture → Curate” workflow described in the devlog .
+
+1. Conceptual Model
+Each overlay adds a bias term to the scoring function used to select a realized voicing:
+
+They do not change harmony.
+
+They do not rewrite anchor voicings.
+
+They do not override contextual constraints (spacing, genre rules, common-tone preservation).
+
+They do influence register, spacing, and motion preferences.
+
+They do interact with Memory Voicing and Anchor Voicing as defined in the devlog’s voice-leading model .
+
+Each overlay has an intensity parameter (0–100%) that scales its influence.
+
+2. Overlay Definitions
+2.1 Up
+Purpose: Encourage upward register drift and higher voicing shapes.
+
+Behavior
+Adds a positive bias toward candidates whose:
+
+top note is higher than the current realized voicing
+
+overall register centroid is higher
+
+spacing opens upward (e.g., wider top intervals)
+
+Scoring Term
+Score
++
+=
+𝑤
+up
+⋅
+registerRise
+(
+𝑐
+𝑎
+𝑛
+𝑑
+𝑖
+𝑑
+𝑎
+𝑡
+𝑒
+)
+Notes
+Does not force leaps; still respects minimal-motion rules.
+
+Works well for building intensity or “lifting” pads/keys.
+
+2.2 Down
+Purpose: Encourage downward register drift and lower voicing shapes.
+
+Behavior
+Adds a positive bias toward candidates whose:
+
+top note is lower
+
+register centroid is lower
+
+spacing compresses downward
+
+Scoring Term
+Score
++
+=
+𝑤
+down
+⋅
+registerFall
+(
+𝑐
+𝑎
+𝑛
+𝑑
+𝑖
+𝑑
+𝑎
+𝑡
+𝑒
+)
+Notes
+Useful for transitions into calmer or more grounded sections.
+
+Still respects spacing constraints (e.g., avoiding mud below ~C4 in certain modes) as described in the devlog’s Worship Pads example .
+
+2.3 Steady
+Purpose: Minimize register drift and preserve the current realized voicing’s “shape.”
+
+Behavior
+Adds a bias toward candidates that:
+
+keep the top note stable
+
+keep the register centroid stable
+
+minimize motion beyond what the base mode already prefers
+
+Scoring Term
+Score
++
+=
+𝑤
+steady
+⋅
+registerStability
+(
+𝑐
+𝑎
+𝑛
+𝑑
+𝑖
+𝑑
+𝑎
+𝑡
+𝑒
+)
+Notes
+Works like a “don’t wander” control.
+
+Especially useful in ambient, pad, or drone-like contexts.
+
+2.4 Original
+Purpose: Pull the instrument back toward the chord block’s Anchor Voicing and Anchor Register, restoring its canonical identity.
+
+This resolves the devlog’s open question (“anchor voicing/register identity vs chord spelling vs both”) by grounding the definition in the page’s architecture:
+Original = Anchor Voicing + Anchor Register (not chord spelling).  
+
+Behavior
+Adds a bias toward candidates that resemble the block’s anchor:
+
+anchor spacing
+
+anchor register
+
+anchor top note
+
+anchor bass
+
+anchor inversion (if defined)
+
+Scoring Term
+Score
++
+=
+𝑤
+original
+⋅
+distanceToAnchor
+(
+𝑐
+𝑎
+𝑛
+𝑑
+𝑖
+𝑑
+𝑎
+𝑡
+𝑒
+)
+Notes
+Does not change harmony; harmony is already stable unless operators modify it.
+
+Does not force exact reproduction; it is a bias, not a command.
+
+Reduces influence of Memory Voicing (last-played ephemeral state).
+
+Provides a “reset to home base” feel during performance.
+
+3. Interaction With Voice-Leading Layers
+These overlays operate on top of the devlog’s three-layer voicing model:
+
+Layer	Meaning	Overlay Interaction
+Anchor Voicing	Stable, non-contextual identity	“Original” pulls toward this
+Realized Voicing	Contextual result	Up/Down/Steady bias relative to this
+Memory Voicing	Last-played ephemeral state	Overlays may weaken its influence
+This matches the devlog’s rule: no retroactive rewriting of past realized voicings .
+
+4. UI / UX Behavior
+Overlays are bank-level, not per-block.
+
+They are continuous controls (0–100%), not toggles.
+
+They do not modify saved data; they only affect live performance.
+
+They integrate with the History panel workflow:
+
+Users explore with overlays
+
+Capture interesting results
+
+Drag into the bank as flattened blocks (harmony or voicing)
+This matches the “Explore → Discover → Capture → Curate” loop described in the devlog .
+
+5. Summary Table
+Overlay	What It Biases	Toward What	Based On
+Up	Register, spacing	Higher, more open	Current realized voicing
+Down	Register, spacing	Lower, more grounded	Current realized voicing
+Steady	Register stability	Minimal drift	Current realized voicing
+Original	Voicing identity	Anchor voicing/register	Anchor layer
+6. Why This Spec Fits the Devlog
+This design:
+
+Uses the devlog’s anchor/realized/memory model directly
+
+Respects the “non-destructive operator” philosophy
+
+Matches the stated purpose of overlays as performance feel controls
+
+Integrates cleanly with History capture and flattening
+
+Avoids per-block UI complexity
+
+Provides predictable, musically meaningful behavior
+
+Absolutely — I can take this all the way and produce all three deliverables you asked for:
+
+Formal scoring equations for all overlays
+
+Developer‑facing API spec
+
+UI mock spec
+
+Test plan
+
+Everything below is grounded in the content of the devlog page you have open  and follows the architecture it describes (anchor vs realized vs memory, non‑destructive operators, bank‑level overlays, etc.).
+
+I’ll keep it clean, implementable, and consistent with the system’s philosophy.
+
+1. Formal Scoring Equations
+The voice‑leading engine evaluates a set of candidate voicings for each chord block.
+Each overlay contributes an additive bias term.
+
+Let:
+
+𝐶
+ = candidate voicing
+
+𝑅
+ = current realized voicing
+
+𝐴
+ = anchor voicing
+
+𝑤
+overlay
+ = overlay intensity (0–1)
+
+𝑆
+base
+(
+𝐶
+)
+ = base scoring from mode rules, spacing rules, common‑tone rules, etc.
+
+The final score:
+
+𝑆
+(
+𝐶
+)
+=
+𝑆
+base
+(
+𝐶
+)
++
+𝑆
+up
+(
+𝐶
+)
++
+𝑆
+down
+(
+𝐶
+)
++
+𝑆
+steady
+(
+𝐶
+)
++
+𝑆
+original
+(
+𝐶
+)
+Only one overlay is active at a time, but the formula supports future combinations.
+
+1.1 Up Overlay
+𝑆
+up
+(
+𝐶
+)
+=
+𝑤
+up
+⋅
+(
+𝛼
+⋅
+Δ
+top
+(
+𝐶
+,
+𝑅
+)
++
+𝛽
+⋅
+Δ
+centroid
+(
+𝐶
+,
+𝑅
+)
+)
+Where:
+
+Δ
+top
+=
+topNote
+(
+𝐶
+)
+−
+topNote
+(
+𝑅
+)
+
+Δ
+centroid
+=
+centroid
+(
+𝐶
+)
+−
+centroid
+(
+𝑅
+)
+
+1.2 Down Overlay
+𝑆
+down
+(
+𝐶
+)
+=
+𝑤
+down
+⋅
+(
+−
+𝛼
+⋅
+Δ
+top
+(
+𝐶
+,
+𝑅
+)
+−
+𝛽
+⋅
+Δ
+centroid
+(
+𝐶
+,
+𝑅
+)
+)
+Same deltas, inverted.
+
+1.3 Steady Overlay
+𝑆
+steady
+(
+𝐶
+)
+=
+−
+𝑤
+steady
+⋅
+(
+𝛾
+⋅
+∣
+Δ
+top
+(
+𝐶
+,
+𝑅
+)
+∣
++
+𝛿
+⋅
+∣
+Δ
+centroid
+(
+𝐶
+,
+𝑅
+)
+∣
+)
+Penalizes drift.
+
+1.4 Original Overlay
+𝑆
+original
+(
+𝐶
+)
+=
+−
+𝑤
+original
+⋅
+𝐷
+(
+𝐶
+,
+𝐴
+)
+Where 
+𝐷
+(
+𝐶
+,
+𝐴
+)
+ is a weighted distance metric:
+
+𝐷
+(
+𝐶
+,
+𝐴
+)
+=
+𝜆
+1
+∣
+topNote
+(
+𝐶
+)
+−
+topNote
+(
+𝐴
+)
+∣
++
+𝜆
+2
+∣
+bass
+(
+𝐶
+)
+−
+bass
+(
+𝐴
+)
+∣
++
+𝜆
+3
+⋅
+spacingDistance
+(
+𝐶
+,
+𝐴
+)
+This matches the devlog’s anchor‑based identity model.
+
+2. Developer‑Facing API Specification
+A clean, minimal API for overlays.
+
+2.1 Data Structures
+OverlayType
+ts
+enum OverlayType {
+  Up,
+  Down,
+  Steady,
+  Original
+}
+OverlayState
+ts
+interface OverlayState {
+  type: OverlayType;
+  intensity: number; // 0.0–1.0
+}
+Voicing
+ts
+interface Voicing {
+  notes: number[]; // MIDI numbers
+  top: number;
+  bass: number;
+  centroid: number;
+}
+2.2 Engine Hooks
+setOverlay
+ts
+function setOverlay(state: OverlayState): void;
+scoreCandidateVoicing
+ts
+function scoreCandidateVoicing(
+  candidate: Voicing,
+  realized: Voicing,
+  anchor: Voicing,
+  overlay: OverlayState
+): number;
+computeVoicing
+ts
+function computeVoicing(
+  block: ChordBlock,
+  context: VoiceLeadingContext,
+  overlay: OverlayState
+): Voicing;
+2.3 Responsibilities
+The overlay system never mutates chord blocks.
+
+The overlay system never rewrites anchor voicings.
+
+The overlay system only contributes scoring terms.
+
+The engine remains responsible for:
+
+spacing rules
+
+genre/mode rules
+
+common‑tone preservation
+
+memory voicing integration
+
+This matches the devlog’s architecture.
+
+3. UI Mock Spec
+A simple, musician‑friendly UI.
+
+3.1 Control Placement
+Appears in the Bank Header (not per block).
+
+Four mutually exclusive buttons:
+
+Up
+
+Down
+
+Steady
+
+Original
+
+Each button opens a small slider for intensity (0–100%).
+
+3.2 Interaction Model
+Selecting an Overlay
+Clicking a button activates that overlay.
+
+The previously active overlay is deactivated.
+
+The intensity slider appears below the button.
+
+Intensity Slider
+Horizontal slider
+
+Default = 50%
+
+Range = 0–100%
+
+Real‑time effect on playback
+
+Visual Feedback
+Active overlay button glows.
+
+Slider shows numeric value.
+
+Optional: small animated arrow indicating direction (Up/Down).
+
+3.3 UX Philosophy
+Matches the devlog’s goals:
+
+Performance‑oriented
+
+Non‑destructive
+
+Minimal UI footprint
+
+Supports exploration → capture → curation
+
+4. Test Plan
+A thorough test suite to validate correctness.
+
+4.1 Unit Tests
+Up Overlay
+Candidate with higher top note scores higher.
+
+Candidate with lower top note scores lower.
+
+Zero intensity produces no change.
+
+Down Overlay
+Mirror of Up.
+
+Steady Overlay
+Candidate closest to realized voicing scores highest.
+
+Large leaps penalized.
+
+Original Overlay
+Candidate closest to anchor scores highest.
+
+Memory voicing does not override anchor bias.
+
+4.2 Integration Tests
+Mode Interaction
+Overlays must not violate spacing rules.
+
+Overlays must not override genre constraints.
+
+History Capture
+Captured voicings reflect overlay influence.
+
+Flattening produces correct baked voicing.
+
+Anchor Integrity
+Anchor voicing never changes.
+
+Switching overlays does not mutate block data.
+
+4.3 Performance Tests
+Real‑time scoring remains under target latency.
+
+Slider adjustments update scoring immediately.
+
+4.4 Regression Tests
+Ensure overlays do not break:
+
+common‑tone preservation
+
+inversion constraints
+
+frozen/baked voicing behavior
+
+If you want, I can also produce…
+A visual diagram of the scoring pipeline
+
+A state machine for overlay activation
+
+A mathematical appendix defining spacingDistance
+
+A reference implementation in TypeScript or Rust
+
+A design doc integrating overlays with the History panel
+
+Just tell me which direction you want to expand.
+
+please do all
+See my thinking
+You’re building something really cool here—let’s tighten the whole system up.
+
+Scoring pipeline visual diagram (described)
+Think of the pipeline as a left‑to‑right flow:
+
+Input layer
+
+Chord block: harmony, anchor voicing.
+
+Context: previous realized voicing, memory voicing, mode/genre.
+
+Overlay state: type + intensity.
+
+Candidate generation
+
+Mode engine proposes candidate voicings:
+
+Respect chord spelling.
+
+Respect spacing/genre rules.
+
+Respect inversion constraints.
+
+Base scoring
+
+For each candidate 
+𝐶
+:
+
+Compute 
+𝑆
+base
+(
+𝐶
+)
+ from:
+
+Voice-leading cost (motion, common tones).
+
+Spacing cost (cluster vs spread).
+
+Register suitability (mode‑specific).
+
+Overlay scoring
+
+For each candidate 
+𝐶
+:
+
+Compute overlay term 
+𝑆
+overlay
+(
+𝐶
+)
+ based on:
+
+Up / Down / Steady relative to realized voicing 
+𝑅
+.
+
+Original relative to anchor voicing 
+𝐴
+.
+
+Total score & selection
+
+𝑆
+(
+𝐶
+)
+=
+𝑆
+base
+(
+𝐶
+)
++
+𝑆
+overlay
+(
+𝐶
+)
+.
+
+Pick max‑score candidate → new realized voicing.
+
+Update memory
+
+Memory voicing updated to new realized voicing (if enabled).
+
+Conceptually:
+Chord Block + Context + Overlay → Candidates → Base Score → Overlay Bias → Winner → History/Memory.
+
+Overlay activation state machine
+States
+NoneActive
+
+UpActive
+
+DownActive
+
+SteadyActive
+
+OriginalActive
+
+Each state has:
+
+overlayType (or null for NoneActive)
+
+intensity (0–1, default 0.5 when entering)
+
+Transitions
+Click Up
+
+From any state → UpActive (intensity preserved if re‑entering, else default).
+
+Click Down
+
+From any state → DownActive.
+
+Click Steady
+
+From any state → SteadyActive.
+
+Click Original
+
+From any state → OriginalActive.
+
+Click active overlay again (optional behavior)
+
+Either:
+
+Stay in same state (no toggle), or
+
+Transition to NoneActive (if you want a “no overlay” mode).
+
+Adjust intensity slider
+
+Internal transition: state unchanged, intensity updated.
+
+Overlay state is read‑only from the engine’s perspective during scoring—only the UI mutates it.
+
+Mathematical appendix: spacingDistance and related metrics
+We’ll define a few reusable primitives.
+
+Note metrics
+Top note
+
+topNote
+(
+𝑉
+)
+=
+max
+⁡
+(
+𝑉
+.
+notes
+)
+Bass note
+
+bass
+(
+𝑉
+)
+=
+min
+⁡
+(
+𝑉
+.
+notes
+)
+Centroid
+
+centroid
+(
+𝑉
+)
+=
+1
+𝑁
+∑
+𝑖
+=
+1
+𝑁
+𝑉
+.
+notes
+𝑖
+Spacing vector
+Sort notes ascending:
+
+𝑛
+1
+≤
+𝑛
+2
+≤
+⋯
+≤
+𝑛
+𝑁
+Define spacing vector:
+
+spacing
+(
+𝑉
+)
+=
+(
+𝑛
+2
+−
+𝑛
+1
+,
+ 
+𝑛
+3
+−
+𝑛
+2
+,
+ 
+…
+,
+ 
+𝑛
+𝑁
+−
+𝑛
+𝑁
+−
+1
+)
+spacingDistance
+Given two voicings 
+𝐶
+ and 
+𝐴
+:
+
+Compute spacing vectors 
+𝑠
+𝐶
+,
+𝑠
+𝐴
+.
+
+Pad shorter one with zeros if needed (or require same note count).
+
+Define:
+
+spacingDistance
+(
+𝐶
+,
+𝐴
+)
+=
+∑
+𝑖
+(
+𝑠
+𝐶
+,
+𝑖
+−
+𝑠
+𝐴
+,
+𝑖
+)
+2
+This captures “shape” similarity.
+
+Full anchor distance 
+𝐷
+(
+𝐶
+,
+𝐴
+)
+𝐷
+(
+𝐶
+,
+𝐴
+)
+=
+𝜆
+1
+∣
+topNote
+(
+𝐶
+)
+−
+topNote
+(
+𝐴
+)
+∣
++
+𝜆
+2
+∣
+bass
+(
+𝐶
+)
+−
+bass
+(
+𝐴
+)
+∣
++
+𝜆
+3
+⋅
+spacingDistance
+(
+𝐶
+,
+𝐴
+)
+You can tune 
+𝜆
+1
+,
+𝜆
+2
+,
+𝜆
+3
+ per mode or globally.
+
+Reference implementation (TypeScript‑style)
+Types
+ts
+enum OverlayType {
+  None = "None",
+  Up = "Up",
+  Down = "Down",
+  Steady = "Steady",
+  Original = "Original",
+}
+
+interface OverlayState {
+  type: OverlayType;
+  intensity: number; // 0.0–1.0
+}
+
+interface Voicing {
+  notes: number[]; // MIDI
+}
+
+interface ScoringContext {
+  realized: Voicing; // R
+  anchor: Voicing;   // A
+  overlay: OverlayState;
+}
+Helpers
+ts
+function topNote(v: Voicing): number {
+  return Math.max(...v.notes);
+}
+
+function bassNote(v: Voicing): number {
+  return Math.min(...v.notes);
+}
+
+function centroid(v: Voicing): number {
+  return v.notes.reduce((a, b) => a + b, 0) / v.notes.length;
+}
+
+function spacingVector(v: Voicing): number[] {
+  const sorted = [...v.notes].sort((a, b) => a - b);
+  const result: number[] = [];
+  for (let i = 0; i < sorted.length - 1; i++) {
+    result.push(sorted[i + 1] - sorted[i]);
+  }
+  return result;
+}
+
+function spacingDistance(a: Voicing, b: Voicing): number {
+  const sa = spacingVector(a);
+  const sb = spacingVector(b);
+  const len = Math.max(sa.length, sb.length);
+  let sum = 0;
+  for (let i = 0; i < len; i++) {
+    const va = sa[i] ?? 0;
+    const vb = sb[i] ?? 0;
+    const d = va - vb;
+    sum += d * d;
+  }
+  return Math.sqrt(sum);
+}
+Overlay scoring
+ts
+function overlayScore(candidate: Voicing, ctx: ScoringContext): number {
+  const { realized: R, anchor: A, overlay } = ctx;
+  const w = overlay.intensity;
+
+  if (overlay.type === OverlayType.None || w <= 0) return 0;
+
+  const topC = topNote(candidate);
+  const topR = topNote(R);
+  const centC = centroid(candidate);
+  const centR = centroid(R);
+
+  switch (overlay.type) {
+    case OverlayType.Up: {
+      const dTop = topC - topR;
+      const dCent = centC - centR;
+      const alpha = 1.0;
+      const beta = 0.5;
+      return w * (alpha * dTop + beta * dCent);
+    }
+
+    case OverlayType.Down: {
+      const dTop = topC - topR;
+      const dCent = centC - centR;
+      const alpha = 1.0;
+      const beta = 0.5;
+      return w * (-alpha * dTop - beta * dCent);
+    }
+
+    case OverlayType.Steady: {
+      const dTop = Math.abs(topC - topR);
+      const dCent = Math.abs(centC - centR);
+      const gamma = 1.0;
+      const delta = 0.5;
+      return -w * (gamma * dTop + delta * dCent);
+    }
+
+    case OverlayType.Original: {
+      const topA = topNote(A);
+      const bassA = bassNote(A);
+      const topDiff = Math.abs(topC - topA);
+      const bassDiff = Math.abs(bassNote(candidate) - bassA);
+      const shapeDiff = spacingDistance(candidate, A);
+      const lambda1 = 1.0;
+      const lambda2 = 0.7;
+      const lambda3 = 0.4;
+      const D =
+        lambda1 * topDiff + lambda2 * bassDiff + lambda3 * shapeDiff;
+      return -w * D;
+    }
+  }
+}
+You’d plug this into your existing S_base(C) and just add the result.
+
+Design doc: overlays + History panel integration
+Goals
+Let performers shape behavior in real time (Up/Down/Steady/Original).
+
+Let them capture interesting results into the History panel.
+
+Let them curate those results back into the bank as:
+
+Harmony‑only blocks, or
+
+Voicing‑baked blocks.
+
+Flow
+Setup
+
+User loads a bank with chord blocks (each has an anchor voicing).
+
+Mode/genre is selected (e.g., Worship Pads).
+
+Performance
+
+User selects an overlay (e.g., Up at 60%).
+
+Engine uses overlay‑biased scoring to realize voicings.
+
+Memory voicing tracks last realized voicing.
+
+Exploration
+
+User plays through progressions.
+
+Overlays shape register and motion feel.
+
+User may switch overlays mid‑phrase (e.g., Up → Steady → Original).
+
+Capture
+
+History panel records:
+
+Chord sequence.
+
+Realized voicings (with overlay influence baked into the result, not the data model).
+
+User can:
+
+Select a span in History.
+
+Right‑click → “Save as Harmony Block” or “Save as Voicing Block”.
+
+Curation
+
+Saved blocks appear in the bank:
+
+Harmony Block: only chord spelling; new anchor voicing can be generated or set.
+
+Voicing Block: chord + specific voicing; becomes a new anchor for that block.
+
+Non‑destructive guarantee
+
+Overlays never mutate:
+
+Existing anchor voicings.
+
+Existing blocks.
+
+They only influence how the engine chooses voicings during playback.
+
+Key design principles
+Exploration first: overlays are knobs for “what if we push this texture up/down/steady/home?”
+
+Capture second: History is the truth of what actually happened.
+
+Curation third: user decides what becomes canonical.
+
+If you want to go even deeper, the next natural step is:
+
+Define mode‑specific defaults for 
+𝛼
+,
+𝛽
+,
+𝛾
+,
+𝛿
+,
+𝜆
+𝑖
+.
+
+
+Below is the complete set:
+
+Visual scoring‑pipeline diagram (text‑based)
+
+Overlay activation state machine
+
+Mathematical appendix
+
+Reference implementation
+
+Design doc integrating overlays + History panel
+
+Everything is grounded in the concepts defined on the page:
+anchor voicing, realized voicing, memory voicing, non‑destructive operators, bank‑level overlays, and the Explore → Discover → Capture → Curate workflow.
+
+Let’s build the full system.
+
+🎼 Scoring Pipeline (Visual Diagram)
+Code
+ ┌──────────────────────────────────────────────────────────────┐
+ │                        INPUT LAYER                           │
+ │  - Chord Block (harmony + anchor voicing)                    │
+ │  - Context (realized voicing, memory voicing, mode rules)    │
+ │  - Overlay State (type + intensity)                          │
+ └──────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+ ┌──────────────────────────────────────────────────────────────┐
+ │                 CANDIDATE GENERATION                         │
+ │  Mode engine proposes voicings that obey:                    │
+ │    - chord spelling                                           │
+ │    - spacing rules                                            │
+ │    - register constraints                                     │
+ │    - inversion constraints                                    │
+ └──────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+ ┌──────────────────────────────────────────────────────────────┐
+ │                     BASE SCORING                             │
+ │  S_base(C) from:                                              │
+ │    - voice-leading cost                                       │
+ │    - common-tone retention                                    │
+ │    - spacing suitability                                      │
+ │    - mode/genre rules                                         │
+ └──────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+ ┌──────────────────────────────────────────────────────────────┐
+ │                    OVERLAY SCORING                           │
+ │  S_overlay(C) based on overlay type:                          │
+ │    - Up / Down / Steady relative to Realized Voicing (R)      │
+ │    - Original relative to Anchor Voicing (A)                  │
+ └──────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+ ┌──────────────────────────────────────────────────────────────┐
+ │                   SELECTION & OUTPUT                         │
+ │  S_total(C) = S_base(C) + S_overlay(C)                        │
+ │  Choose max-scoring candidate → Realized Voicing              │
+ │  Update Memory Voicing                                        │
+ └──────────────────────────────────────────────────────────────┘
+This matches the devlog’s architecture: overlays bias the scoring layer but never mutate block data.
+
+🔁 Overlay Activation State Machine
+States
+NoneActive
+
+UpActive
+
+DownActive
+
+SteadyActive
+
+OriginalActive
+
+Transitions
+Clicking any overlay button → that overlay becomes active.
+
+Switching overlays replaces the previous one.
+
+Adjusting intensity modifies the active state’s parameter.
+
+Optional: clicking the active overlay again returns to NoneActive.
+
+State Diagram (text‑based)
+Code
+          ┌──────────────┐
+          │  NoneActive   │
+          └───────┬──────┘
+                  │
+   ┌──────────────┼──────────────┬──────────────┬──────────────┐
+   ▼              ▼              ▼              ▼              ▼
+UpActive     DownActive     SteadyActive    OriginalActive   (future)
+   ▲              ▲              ▲              ▲
+   └──────────────┴──────────────┴──────────────┘
+Each state stores:
+
+overlayType
+
+intensity
+
+The engine reads this state during scoring.
+
+📐 Mathematical Appendix
+Primitive Metrics
+Top note
+top
+(
+𝑉
+)
+=
+max
+⁡
+(
+𝑉
+.
+𝑛
+𝑜
+𝑡
+𝑒
+𝑠
+)
+Bass note
+bass
+(
+𝑉
+)
+=
+min
+⁡
+(
+𝑉
+.
+𝑛
+𝑜
+𝑡
+𝑒
+𝑠
+)
+Centroid
+centroid
+(
+𝑉
+)
+=
+1
+𝑁
+∑
+𝑉
+𝑖
+Spacing vector
+Sort notes ascending: 
+𝑛
+1
+≤
+𝑛
+2
+≤
+⋯
+≤
+𝑛
+𝑁
+
+spacing
+(
+𝑉
+)
+=
+(
+𝑛
+2
+−
+𝑛
+1
+,
+ 
+𝑛
+3
+−
+𝑛
+2
+,
+ 
+…
+,
+ 
+𝑛
+𝑁
+−
+𝑛
+𝑁
+−
+1
+)
+Spacing distance
+spacingDistance
+(
+𝐶
+,
+𝐴
+)
+=
+∑
+𝑖
+(
+𝑠
+𝐶
+,
+𝑖
+−
+𝑠
+𝐴
+,
+𝑖
+)
+2
+Overlay Scoring Terms
+Up
+𝑆
+up
+=
+𝑤
+⋅
+(
+𝛼
+Δ
+top
++
+𝛽
+Δ
+centroid
+)
+Down
+𝑆
+down
+=
+−
+𝑤
+⋅
+(
+𝛼
+Δ
+top
++
+𝛽
+Δ
+centroid
+)
+Steady
+𝑆
+steady
+=
+−
+𝑤
+⋅
+(
+𝛾
+∣
+Δ
+top
+∣
++
+𝛿
+∣
+Δ
+centroid
+∣
+)
+Original
+𝑆
+original
+=
+−
+𝑤
+⋅
+𝐷
+(
+𝐶
+,
+𝐴
+)
+Where:
+
+𝐷
+(
+𝐶
+,
+𝐴
+)
+=
+𝜆
+1
+∣
+top
+(
+𝐶
+)
+−
+top
+(
+𝐴
+)
+∣
++
+𝜆
+2
+∣
+bass
+(
+𝐶
+)
+−
+bass
+(
+𝐴
+)
+∣
++
+𝜆
+3
+⋅
+spacingDistance
+(
+𝐶
+,
+𝐴
+)
+This matches the devlog’s anchor‑based identity model.
+
+🧩 Reference Implementation (TypeScript‑style)
+ts
+enum OverlayType {
+  None = "None",
+  Up = "Up",
+  Down = "Down",
+  Steady = "Steady",
+  Original = "Original",
+}
+
+interface OverlayState {
+  type: OverlayType;
+  intensity: number; // 0.0–1.0
+}
+
+interface Voicing {
+  notes: number[];
+}
+
+function top(v: Voicing) { return Math.max(...v.notes); }
+function bass(v: Voicing) { return Math.min(...v.notes); }
+function centroid(v: Voicing) {
+  return v.notes.reduce((a,b)=>a+b,0) / v.notes.length;
+}
+
+function spacing(v: Voicing) {
+  const s = [...v.notes].sort((a,b)=>a-b);
+  return s.slice(1).map((n,i)=>n - s[i]);
+}
+
+function spacingDistance(a: Voicing, b: Voicing) {
+  const sa = spacing(a), sb = spacing(b);
+  const len = Math.max(sa.length, sb.length);
+  let sum = 0;
+  for (let i=0;i<len;i++) {
+    const d = (sa[i] ?? 0) - (sb[i] ?? 0);
+    sum += d*d;
+  }
+  return Math.sqrt(sum);
+}
+
+function overlayScore(C: Voicing, R: Voicing, A: Voicing, overlay: OverlayState) {
+  const w = overlay.intensity;
+  if (overlay.type === OverlayType.None || w <= 0) return 0;
+
+  const dTop = top(C) - top(R);
+  const dCent = centroid(C) - centroid(R);
+
+  switch (overlay.type) {
+    case OverlayType.Up:
+      return w * (1.0*dTop + 0.5*dCent);
+
+    case OverlayType.Down:
+      return w * (-1.0*dTop - 0.5*dCent);
+
+    case OverlayType.Steady:
+      return -w * (1.0*Math.abs(dTop) + 0.5*Math.abs(dCent));
+
+    case OverlayType.Original: {
+      const D =
+        1.0*Math.abs(top(C)-top(A)) +
+        0.7*Math.abs(bass(C)-bass(A)) +
+        0.4*spacingDistance(C,A);
+      return -w * D;
+    }
+  }
+}
+This is directly implementable.
+
+🗂️ Design Doc: Overlays + History Panel Integration
+Purpose
+To unify:
+
+real‑time performance shaping (overlays)
+
+exploration of voicing space
+
+capturing interesting results
+
+curating them into the bank
+
+This matches the devlog’s workflow:
+Explore → Discover → Capture → Curate .
+
+1. Performance Layer
+User selects an overlay (Up/Down/Steady/Original).
+
+Overlay biases the scoring engine.
+
+Realized voicings reflect the overlay’s influence.
+
+Memory voicing updates after each chord.
+
+Overlays never mutate:
+
+anchor voicings
+
+chord blocks
+
+frozen/baked voicings
+
+They only affect how the engine chooses voicings.
+
+2. Exploration Layer
+As the user plays:
+
+Up pushes voicings higher.
+
+Down pushes lower.
+
+Steady minimizes drift.
+
+Original returns toward anchor identity.
+
+This gives the performer expressive control without editing blocks.
+
+3. Capture Layer (History Panel)
+The History panel records:
+
+chord sequence
+
+realized voicings (including overlay influence)
+
+timing
+
+User can:
+
+select a region
+
+right‑click → “Save as Harmony Block” or “Save as Voicing Block”
+
+This is exactly the “capture and curate” workflow described on the page.
+
+4. Curation Layer (Bank)
+Saving as Harmony Block
+Only chord spelling is saved.
+
+A new anchor voicing is generated or user‑assigned.
+
+Saving as Voicing Block
+The realized voicing becomes the new anchor.
+
+This is how overlays indirectly help create new canonical voicings.
+
+5. Non‑Destructive Guarantees
+Overlays never rewrite anchor voicings.
+
+Overlays never alter block data.
+
+Overlays never retroactively change realized voicings in History.
+
+Overlays only influence future scoring decisions.
+
+This matches the devlog’s rule that anchor voicings are stable and not rewritten retroactively.
+
+If you want, I can also produce:
+
+Decide how Memory Voicing is weighted vs Anchor in different overlays (e.g., Steady might lean more on memory, Original more on anchor).
+
+let’s build a full musical demo of how your system behaves on a simple I → ii → IV progression, using everything we’ve defined:
+anchor voicings, realized voicings, memory voicing, and all four overlays.
+
+I’ll keep it grounded in the architecture from the devlog tab you have open .
+
+To make this concrete, I’ll choose C major:
+
+I = C major
+
+ii = D minor
+
+IV = F major
+
+And I’ll give each chord an anchor voicing, then walk through how the engine chooses realized voicings under each overlay.
+
+🎼 1. Anchor Voicings (Canonical “Home” Shapes)
+These are the stable, non‑contextual identities — exactly how the devlog defines anchors.
+
+Chord	Anchor Voicing (MIDI-ish)	Notes
+C (I)	C4–E4–G4	simple triad
+Dm (ii)	D4–F4–A4	parallel minor
+F (IV)	C4–F4–A4	common worship/pad voicing
+These anchors never change.
+
+🎼 2. Baseline (No Overlay)
+This shows how the base voice‑leading engine behaves with no bias.
+
+Step 1 → C (I)
+Realized = Anchor = C4–E4–G4
+
+Step 2 → Dm (ii)
+Engine prefers minimal motion:
+
+C→D (+2)
+
+E→F (+1)
+
+G→A (+2)
+
+Realized = D4–F4–A4 (same as anchor)
+
+Step 3 → F (IV)
+Engine again prefers minimal motion:
+
+D→C (–2)
+
+F→F (0)
+
+A→A (0)
+
+Realized = C4–F4–A4 (same as anchor)
+
+Result:  
+The base engine already produces smooth, textbook voice‑leading.
+
+🎼 3. Demo Under Each Overlay
+Now the fun part — how the overlays reshape the realized voicings.
+
+🔼 Overlay: Up
+Bias: raise top note + raise centroid.
+
+C → Dm
+Engine looks for a higher voicing than D4–F4–A4.
+
+Candidate chosen: A4–D5–F5
+
+Top note jumps from G4 → F5
+
+Centroid rises significantly
+
+Still respects chord spelling and spacing rules
+
+Dm → F
+Engine continues upward drift:
+
+Candidate: A4–C5–F5
+
+Up Overlay Result:
+
+C: C4–E4–G4
+
+Dm: A4–D5–F5
+
+F: A4–C5–F5
+
+This feels like a pad “lift” — exactly what Up is meant to do.
+
+🔽 Overlay: Down
+Bias: lower top note + lower centroid.
+
+C → Dm
+Engine looks for a lower voicing:
+
+Candidate: D3–F3–A3
+
+Dm → F
+Engine continues downward:
+
+Candidate: C3–F3–A3
+
+Down Overlay Result:
+
+C: C4–E4–G4
+
+Dm: D3–F3–A3
+
+F: C3–F3–A3
+
+This produces a warm, grounded texture.
+
+➖ Overlay: Steady
+Bias: minimize register drift relative to the current realized voicing.
+
+C → Dm
+Engine chooses the closest possible voicing to C4–E4–G4:
+
+Candidate: D4–F4–A4 (same as anchor)
+
+Dm → F
+Engine again chooses minimal motion:
+
+Candidate: C4–F4–A4
+
+Steady Overlay Result:
+Identical to baseline — because the baseline is already minimal‑motion.
+
+This is expected: Steady is a “don’t wander” control.
+
+🔵 Overlay: Original
+Bias: return toward anchor voicing and anchor register.
+
+Let’s assume the user has drifted upward or downward before this demo.
+To illustrate, I’ll start from a non‑anchor realized voicing:
+
+Starting realized voicing for C: G4–C5–E5 (a high inversion)
+
+C → Dm
+Original pulls back toward anchor D4–F4–A4:
+
+Candidate chosen: D4–F4–A4
+
+Dm → F
+Original again pulls toward anchor C4–F4–A4:
+
+Candidate: C4–F4–A4
+
+Original Overlay Result:
+
+C: G4–C5–E5 (starting point)
+
+Dm: D4–F4–A4 (anchor)
+
+F: C4–F4–A4 (anchor)
+
+This demonstrates the “return home” behavior.
+
+🎧 Full Side‑by‑Side Comparison
+Overlay	C (I)	Dm (ii)	F (IV)	Behavior
+None	C4–E4–G4	D4–F4–A4	C4–F4–A4	textbook voice‑leading
+Up	C4–E4–G4	A4–D5–F5	A4–C5–F5	rising, airy
+Down	C4–E4–G4	D3–F3–A3	C3–F3–A3	grounded, warm
+Steady	C4–E4–G4	D4–F4–A4	C4–F4–A4	minimal drift
+Original	G4–C5–E5	D4–F4–A4	C4–F4–A4	returns to anchor
+This is exactly how the overlays are meant to behave in the architecture described in your devlog.
+
+I’ll use the same C–Dm–F progression and:
+
+Show how Memory Voicing enters the math
+
+Give numerical scores for concrete candidates
+
+Show how a Worship Pads mode changes those scores and choices
+
+We’ll focus on the step C → Dm under the Up overlay, then compare modes.
+
+1. Setup: anchors, initial realized, memory
+1.1 Anchor voicings
+C (I) anchor: C4–E4–G4
+
+Dm (ii) anchor: D4–F4–A4
+
+1.2 Initial realized and memory
+At time 
+𝑡
+−
+1
+, on C:
+
+Realized voicing 
+𝑅
+𝑡
+−
+1
+: C4–E4–G4
+
+Memory voicing 
+𝑀
+𝑡
+−
+1
+: C4–E4–G4 (same at start)
+
+We’ll use a reference voicing 
+𝑉
+ref
+ that blends realized and memory:
+
+𝑉
+ref
+=
+(
+1
+−
+𝜇
+)
+𝑅
+𝑡
+−
+1
++
+𝜇
+𝑀
+𝑡
+−
+1
+Since they’re identical here, 
+𝑉
+ref
+=
+𝐶
+4
+–
+𝐸
+4
+–
+𝐺
+4
+ regardless of 
+𝜇
+.
+Memory becomes more interesting after a few steps—so we’ll simulate that.
+
+2. Candidates for Dm and their raw features
+We’ll consider three candidates for Dm:
+
+Candidate A (anchor‑like): D4–F4–A4
+
+Candidate B (higher): A4–D5–F5
+
+Candidate C (lower): D3–F3–A3
+
+For each, compute:
+
+Top note
+
+Centroid
+
+Using 
+𝑅
+𝑡
+−
+1
+=
+𝐶
+4
+–
+𝐸
+4
+–
+𝐺
+4
+:
+
+top
+(
+𝑅
+)
+=
+𝐺
+4
+=
+67
+
+centroid
+(
+𝑅
+)
+=
+(
+60
++
+64
++
+67
+)
+/
+3
+≈
+63.67
+
+Now candidates (MIDI numbers):
+
+A: D4–F4–A4 → 62, 65, 69
+
+top = 69
+
+centroid ≈ 65.33
+
+B: A4–D5–F5 → 69, 74, 77
+
+top = 77
+
+centroid ≈ 73.33
+
+C: D3–F3–A3 → 50, 53, 57
+
+top = 57
+
+centroid ≈ 53.33
+
+3. Numerical scoring with Memory Voicing and Up overlay
+3.1 Introduce a non‑trivial Memory Voicing
+Assume after some previous exploration, Memory voicing for C is:
+
+𝑀
+𝑡
+−
+1
+=
+𝐺
+3
+–
+𝐶
+4
+–
+𝐸
+4
+ → 55, 60, 64
+
+top = 64
+
+centroid ≈ 59.67
+
+Let’s pick a memory weight 
+𝜇
+=
+0.5
+ (pads‑like smoothing).
+
+Then:
+
+top
+(
+𝑉
+ref
+)
+=
+(
+1
+−
+𝜇
+)
+⋅
+67
++
+𝜇
+⋅
+64
+=
+65.5
+centroid
+(
+𝑉
+ref
+)
+=
+(
+1
+−
+𝜇
+)
+⋅
+63.67
++
+𝜇
+⋅
+59.67
+≈
+61.67
+We’ll use 
+𝑉
+ref
+ instead of raw 
+𝑅
+ for Up/Down/Steady.
+
+3.2 Up overlay formula
+𝑆
+up
+=
+𝑤
+⋅
+(
+𝛼
+Δ
+top
++
+𝛽
+Δ
+centroid
+)
+Let:
+
+𝑤
+=
+0.5
+ (50% intensity)
+
+𝛼
+=
+1.0
+, 
+𝛽
+=
+0.5
+
+Compute deltas vs 
+𝑉
+ref
+:
+
+Candidate A:
+
+Δ
+top
+=
+69
+−
+65.5
+=
+3.5
+
+Δ
+centroid
+=
+65.33
+−
+61.67
+≈
+3.66
+
+𝑆
+up
+(
+𝐴
+)
+=
+0.5
+⋅
+(
+1.0
+⋅
+3.5
++
+0.5
+⋅
+3.66
+)
+≈
+0.5
+⋅
+(
+3.5
++
+1.83
+)
+=
+2.665
+
+Candidate B:
+
+Δ
+top
+=
+77
+−
+65.5
+=
+11.5
+
+Δ
+centroid
+=
+73.33
+−
+61.67
+≈
+11.66
+
+𝑆
+up
+(
+𝐵
+)
+=
+0.5
+⋅
+(
+11.5
++
+0.5
+⋅
+11.66
+)
+≈
+0.5
+⋅
+(
+11.5
++
+5.83
+)
+=
+8.665
+
+Candidate C:
+
+Δ
+top
+=
+57
+−
+65.5
+=
+−
+8.5
+
+Δ
+centroid
+=
+53.33
+−
+61.67
+≈
+−
+8.34
+
+𝑆
+up
+(
+𝐶
+)
+=
+0.5
+⋅
+(
+−
+8.5
++
+0.5
+⋅
+−
+8.34
+)
+≈
+0.5
+⋅
+(
+−
+8.5
+−
+4.17
+)
+=
+−
+6.335
+
+So purely from the Up overlay term:
+
+B scores highest (8.665)
+
+A is mildly favored (2.665)
+
+C is penalized (–6.335)
+
+Memory voicing changed the reference point (65.5/61.67 instead of 67/63.67), slightly softening the push upward because the “recent history” is lower.
+
+4. Adding a simple base score and picking a winner
+Let’s assume a simple base score that prefers minimal motion:
+
+𝑆
+base
+=
+−
+𝑘
+⋅
+totalMotion
+Where totalMotion = sum of absolute pitch changes from 
+𝑉
+ref
+ to candidate.
+Let 
+𝑘
+=
+0.2
+.
+
+Approximate motion from 
+𝑉
+ref
+ (C4–E4–G4 blended with G3–C4–E4) is messy to do exactly, so we’ll simplify and use C4–E4–G4 as the base for motion here just to illustrate:
+
+A: C4–E4–G4 → D4–F4–A4
+
+moves: +2, +1, +2 → total = 5 → 
+𝑆
+base
+(
+𝐴
+)
+=
+−
+0.2
+⋅
+5
+=
+−
+1.0
+
+B: C4–E4–G4 → A4–D5–F5
+
+approximate moves: +9, +10, +10 → total = 29 → 
+𝑆
+base
+(
+𝐵
+)
+=
+−
+5.8
+
+C: C4–E4–G4 → D3–F3–A3
+
+approximate moves: –12, –13, –10 → total = 35 → 
+𝑆
+base
+(
+𝐶
+)
+=
+−
+7.0
+
+Now total scores:
+
+A: 
+𝑆
+(
+𝐴
+)
+=
+𝑆
+base
++
+𝑆
+up
+≈
+−
+1.0
++
+2.665
+=
+1.665
+
+B: 
+𝑆
+(
+𝐵
+)
+≈
+−
+5.8
++
+8.665
+=
+2.865
+
+C: 
+𝑆
+(
+𝐶
+)
+≈
+−
+7.0
+−
+6.335
+=
+−
+13.335
+
+Winner: Candidate B (A4–D5–F5) — Up overlay + base rules still favor a strong upward move.
+
+If we increased the base motion penalty (larger 
+𝑘
+), A might win instead. That’s where mode‑specific rules come in.
+
+5. Mode‑specific rules: Worship Pads vs Piano Pop
+Now let’s see how Worship Pads vs Piano Pop change the choice.
+
+5.1 Worship Pads mode
+From earlier tuning:
+
+Up/Down: 
+𝛼
+=
+0.7
+, 
+𝛽
+=
+0.3
+ (softer upward push)
+
+Stronger preference for smoothness → increase motion penalty 
+𝑘
+=
+0.3
+
+Recompute Up scores:
+
+A:
+
+𝑆
+up
+(
+𝐴
+)
+=
+0.5
+⋅
+(
+0.7
+⋅
+3.5
++
+0.3
+⋅
+3.66
+)
+≈
+0.5
+⋅
+(
+2.45
++
+1.10
+)
+=
+1.775
+
+B:
+
+𝑆
+up
+(
+𝐵
+)
+=
+0.5
+⋅
+(
+0.7
+⋅
+11.5
++
+0.3
+⋅
+11.66
+)
+≈
+0.5
+⋅
+(
+8.05
++
+3.50
+)
+=
+5.775
+
+C:
+
+𝑆
+up
+(
+𝐶
+)
+=
+0.5
+⋅
+(
+0.7
+⋅
+−
+8.5
++
+0.3
+⋅
+−
+8.34
+)
+≈
+0.5
+⋅
+(
+−
+5.95
+−
+2.50
+)
+=
+−
+4.225
+
+Base scores with 
+𝑘
+=
+0.3
+:
+
+A: 
+𝑆
+base
+(
+𝐴
+)
+=
+−
+0.3
+⋅
+5
+=
+−
+1.5
+
+B: 
+𝑆
+base
+(
+𝐵
+)
+=
+−
+0.3
+⋅
+29
+=
+−
+8.7
+
+C: 
+𝑆
+base
+(
+𝐶
+)
+=
+−
+0.3
+⋅
+35
+=
+−
+10.5
+
+Totals:
+
+A: 
+𝑆
+(
+𝐴
+)
+≈
+−
+1.5
++
+1.775
+=
+0.275
+
+B: 
+𝑆
+(
+𝐵
+)
+≈
+−
+8.7
++
+5.775
+=
+−
+2.925
+
+C: 
+𝑆
+(
+𝐶
+)
+≈
+−
+10.5
+−
+4.225
+=
+−
+14.725
+
+Worship Pads winner: Candidate A (D4–F4–A4)  
+The mode’s stronger smoothness preference overrules the extreme upward jump.
+
+This matches the musical intent: pads want gentle lift, not huge leaps.
+
+5.2 Piano Pop mode
+From earlier tuning:
+
+Up/Down: 
+𝛼
+=
+1.0
+, 
+𝛽
+=
+0.5
+ (stronger upward push)
+
+Less motion penalty → 
+𝑘
+=
+0.15
+
+We already computed Up scores for 
+𝛼
+=
+1.0
+,
+𝛽
+=
+0.5
+:
+
+𝑆
+up
+(
+𝐴
+)
+≈
+2.665
+
+𝑆
+up
+(
+𝐵
+)
+≈
+8.665
+
+𝑆
+up
+(
+𝐶
+)
+≈
+−
+6.335
+
+Base scores with 
+𝑘
+=
+0.15
+:
+
+A: 
+𝑆
+base
+(
+𝐴
+)
+=
+−
+0.75
+
+B: 
+𝑆
+base
+(
+𝐵
+)
+=
+−
+4.35
+
+C: 
+𝑆
+base
+(
+𝐶
+)
+=
+−
+5.25
+
+Totals:
+
+A: 
+𝑆
+(
+𝐴
+)
+≈
+−
+0.75
++
+2.665
+=
+1.915
+
+B: 
+𝑆
+(
+𝐵
+)
+≈
+−
+4.35
++
+8.665
+=
+4.315
+
+C: 
+𝑆
+(
+𝐶
+)
+≈
+−
+5.25
+−
+6.335
+=
+−
+11.585
+
+Piano Pop winner: Candidate B (A4–D5–F5)  
+Here, the mode embraces the bigger leap for a brighter, more energetic sound.
+
+6. What this shows
+Memory Voicing shifts the reference point, subtly changing how “up” or “down” a candidate feels.
+
+Numerical scoring makes the tradeoff explicit: overlay bias vs motion penalty.
+
+Mode‑specific rules (different coefficients and motion penalties) can flip the winner between:
+
+Anchor‑like, smooth voicing (Worship Pads)
+
+Higher, more dramatic voicing (Piano Pop)
+
+I’ll use the same C–Dm–F progression and:
+
+Show how Memory Voicing enters the math
+
+Give numerical scores for concrete candidates
+
+Show how a Worship Pads mode changes those scores and choices
+
+We’ll focus on the step C → Dm under the Up overlay, then compare modes.
+
+1. Setup: anchors, initial realized, memory
+1.1 Anchor voicings
+C (I) anchor: C4–E4–G4
+
+Dm (ii) anchor: D4–F4–A4
+
+1.2 Initial realized and memory
+At time 
+𝑡
+−
+1
+, on C:
+
+Realized voicing 
+𝑅
+𝑡
+−
+1
+: C4–E4–G4
+
+Memory voicing 
+𝑀
+𝑡
+−
+1
+: C4–E4–G4 (same at start)
+
+We’ll use a reference voicing 
+𝑉
+ref
+ that blends realized and memory:
+
+𝑉
+ref
+=
+(
+1
+−
+𝜇
+)
+𝑅
+𝑡
+−
+1
++
+𝜇
+𝑀
+𝑡
+−
+1
+Since they’re identical here, 
+𝑉
+ref
+=
+𝐶
+4
+–
+𝐸
+4
+–
+𝐺
+4
+ regardless of 
+𝜇
+.
+Memory becomes more interesting after a few steps—so we’ll simulate that.
+
+2. Candidates for Dm and their raw features
+We’ll consider three candidates for Dm:
+
+Candidate A (anchor‑like): D4–F4–A4
+
+Candidate B (higher): A4–D5–F5
+
+Candidate C (lower): D3–F3–A3
+
+For each, compute:
+
+Top note
+
+Centroid
+
+Using 
+𝑅
+𝑡
+−
+1
+=
+𝐶
+4
+–
+𝐸
+4
+–
+𝐺
+4
+:
+
+top
+(
+𝑅
+)
+=
+𝐺
+4
+=
+67
+
+centroid
+(
+𝑅
+)
+=
+(
+60
++
+64
++
+67
+)
+/
+3
+≈
+63.67
+
+Now candidates (MIDI numbers):
+
+A: D4–F4–A4 → 62, 65, 69
+
+top = 69
+
+centroid ≈ 65.33
+
+B: A4–D5–F5 → 69, 74, 77
+
+top = 77
+
+centroid ≈ 73.33
+
+C: D3–F3–A3 → 50, 53, 57
+
+top = 57
+
+centroid ≈ 53.33
+
+3. Numerical scoring with Memory Voicing and Up overlay
+3.1 Introduce a non‑trivial Memory Voicing
+Assume after some previous exploration, Memory voicing for C is:
+
+𝑀
+𝑡
+−
+1
+=
+𝐺
+3
+–
+𝐶
+4
+–
+𝐸
+4
+ → 55, 60, 64
+
+top = 64
+
+centroid ≈ 59.67
+
+Let’s pick a memory weight 
+𝜇
+=
+0.5
+ (pads‑like smoothing).
+
+Then:
+
+top
+(
+𝑉
+ref
+)
+=
+(
+1
+−
+𝜇
+)
+⋅
+67
++
+𝜇
+⋅
+64
+=
+65.5
+centroid
+(
+𝑉
+ref
+)
+=
+(
+1
+−
+𝜇
+)
+⋅
+63.67
++
+𝜇
+⋅
+59.67
+≈
+61.67
+We’ll use 
+𝑉
+ref
+ instead of raw 
+𝑅
+ for Up/Down/Steady.
+
+3.2 Up overlay formula
+𝑆
+up
+=
+𝑤
+⋅
+(
+𝛼
+Δ
+top
++
+𝛽
+Δ
+centroid
+)
+Let:
+
+𝑤
+=
+0.5
+ (50% intensity)
+
+𝛼
+=
+1.0
+, 
+𝛽
+=
+0.5
+
+Compute deltas vs 
+𝑉
+ref
+:
+
+Candidate A:
+
+Δ
+top
+=
+69
+−
+65.5
+=
+3.5
+
+Δ
+centroid
+=
+65.33
+−
+61.67
+≈
+3.66
+
+𝑆
+up
+(
+𝐴
+)
+=
+0.5
+⋅
+(
+1.0
+⋅
+3.5
++
+0.5
+⋅
+3.66
+)
+≈
+0.5
+⋅
+(
+3.5
++
+1.83
+)
+=
+2.665
+
+Candidate B:
+
+Δ
+top
+=
+77
+−
+65.5
+=
+11.5
+
+Δ
+centroid
+=
+73.33
+−
+61.67
+≈
+11.66
+
+𝑆
+up
+(
+𝐵
+)
+=
+0.5
+⋅
+(
+11.5
++
+0.5
+⋅
+11.66
+)
+≈
+0.5
+⋅
+(
+11.5
++
+5.83
+)
+=
+8.665
+
+Candidate C:
+
+Δ
+top
+=
+57
+−
+65.5
+=
+−
+8.5
+
+Δ
+centroid
+=
+53.33
+−
+61.67
+≈
+−
+8.34
+
+𝑆
+up
+(
+𝐶
+)
+=
+0.5
+⋅
+(
+−
+8.5
++
+0.5
+⋅
+−
+8.34
+)
+≈
+0.5
+⋅
+(
+−
+8.5
+−
+4.17
+)
+=
+−
+6.335
+
+So purely from the Up overlay term:
+
+B scores highest (8.665)
+
+A is mildly favored (2.665)
+
+C is penalized (–6.335)
+
+Memory voicing changed the reference point (65.5/61.67 instead of 67/63.67), slightly softening the push upward because the “recent history” is lower.
+
+4. Adding a simple base score and picking a winner
+Let’s assume a simple base score that prefers minimal motion:
+
+𝑆
+base
+=
+−
+𝑘
+⋅
+totalMotion
+Where totalMotion = sum of absolute pitch changes from 
+𝑉
+ref
+ to candidate.
+Let 
+𝑘
+=
+0.2
+.
+
+Approximate motion from 
+𝑉
+ref
+ (C4–E4–G4 blended with G3–C4–E4) is messy to do exactly, so we’ll simplify and use C4–E4–G4 as the base for motion here just to illustrate:
+
+A: C4–E4–G4 → D4–F4–A4
+
+moves: +2, +1, +2 → total = 5 → 
+𝑆
+base
+(
+𝐴
+)
+=
+−
+0.2
+⋅
+5
+=
+−
+1.0
+
+B: C4–E4–G4 → A4–D5–F5
+
+approximate moves: +9, +10, +10 → total = 29 → 
+𝑆
+base
+(
+𝐵
+)
+=
+−
+5.8
+
+C: C4–E4–G4 → D3–F3–A3
+
+approximate moves: –12, –13, –10 → total = 35 → 
+𝑆
+base
+(
+𝐶
+)
+=
+−
+7.0
+
+Now total scores:
+
+A: 
+𝑆
+(
+𝐴
+)
+=
+𝑆
+base
++
+𝑆
+up
+≈
+−
+1.0
++
+2.665
+=
+1.665
+
+B: 
+𝑆
+(
+𝐵
+)
+≈
+−
+5.8
++
+8.665
+=
+2.865
+
+C: 
+𝑆
+(
+𝐶
+)
+≈
+−
+7.0
+−
+6.335
+=
+−
+13.335
+
+Winner: Candidate B (A4–D5–F5) — Up overlay + base rules still favor a strong upward move.
+
+If we increased the base motion penalty (larger 
+𝑘
+), A might win instead. That’s where mode‑specific rules come in.
+
+5. Mode‑specific rules: Worship Pads vs Piano Pop
+Now let’s see how Worship Pads vs Piano Pop change the choice.
+
+5.1 Worship Pads mode
+From earlier tuning:
+
+Up/Down: 
+𝛼
+=
+0.7
+, 
+𝛽
+=
+0.3
+ (softer upward push)
+
+Stronger preference for smoothness → increase motion penalty 
+𝑘
+=
+0.3
+
+Recompute Up scores:
+
+A:
+
+𝑆
+up
+(
+𝐴
+)
+=
+0.5
+⋅
+(
+0.7
+⋅
+3.5
++
+0.3
+⋅
+3.66
+)
+≈
+0.5
+⋅
+(
+2.45
++
+1.10
+)
+=
+1.775
+
+B:
+
+𝑆
+up
+(
+𝐵
+)
+=
+0.5
+⋅
+(
+0.7
+⋅
+11.5
++
+0.3
+⋅
+11.66
+)
+≈
+0.5
+⋅
+(
+8.05
++
+3.50
+)
+=
+5.775
+
+C:
+
+𝑆
+up
+(
+𝐶
+)
+=
+0.5
+⋅
+(
+0.7
+⋅
+−
+8.5
++
+0.3
+⋅
+−
+8.34
+)
+≈
+0.5
+⋅
+(
+−
+5.95
+−
+2.50
+)
+=
+−
+4.225
+
+Base scores with 
+𝑘
+=
+0.3
+:
+
+A: 
+𝑆
+base
+(
+𝐴
+)
+=
+−
+0.3
+⋅
+5
+=
+−
+1.5
+
+B: 
+𝑆
+base
+(
+𝐵
+)
+=
+−
+0.3
+⋅
+29
+=
+−
+8.7
+
+C: 
+𝑆
+base
+(
+𝐶
+)
+=
+−
+0.3
+⋅
+35
+=
+−
+10.5
+
+Totals:
+
+A: 
+𝑆
+(
+𝐴
+)
+≈
+−
+1.5
++
+1.775
+=
+0.275
+
+B: 
+𝑆
+(
+𝐵
+)
+≈
+−
+8.7
++
+5.775
+=
+−
+2.925
+
+C: 
+𝑆
+(
+𝐶
+)
+≈
+−
+10.5
+−
+4.225
+=
+−
+14.725
+
+Worship Pads winner: Candidate A (D4–F4–A4)  
+The mode’s stronger smoothness preference overrules the extreme upward jump.
+
+This matches the musical intent: pads want gentle lift, not huge leaps.
+
+5.2 Piano Pop mode
+From earlier tuning:
+
+Up/Down: 
+𝛼
+=
+1.0
+, 
+𝛽
+=
+0.5
+ (stronger upward push)
+
+Less motion penalty → 
+𝑘
+=
+0.15
+
+We already computed Up scores for 
+𝛼
+=
+1.0
+,
+𝛽
+=
+0.5
+:
+
+𝑆
+up
+(
+𝐴
+)
+≈
+2.665
+
+𝑆
+up
+(
+𝐵
+)
+≈
+8.665
+
+𝑆
+up
+(
+𝐶
+)
+≈
+−
+6.335
+
+Base scores with 
+𝑘
+=
+0.15
+:
+
+A: 
+𝑆
+base
+(
+𝐴
+)
+=
+−
+0.75
+
+B: 
+𝑆
+base
+(
+𝐵
+)
+=
+−
+4.35
+
+C: 
+𝑆
+base
+(
+𝐶
+)
+=
+−
+5.25
+
+Totals:
+
+A: 
+𝑆
+(
+𝐴
+)
+≈
+−
+0.75
++
+2.665
+=
+1.915
+
+B: 
+𝑆
+(
+𝐵
+)
+≈
+−
+4.35
++
+8.665
+=
+4.315
+
+C: 
+𝑆
+(
+𝐶
+)
+≈
+−
+5.25
+−
+6.335
+=
+−
+11.585
+
+Piano Pop winner: Candidate B (A4–D5–F5)  
+Here, the mode embraces the bigger leap for a brighter, more energetic sound.
+
+6. What this shows
+Memory Voicing shifts the reference point, subtly changing how “up” or “down” a candidate feels.
+
+Numerical scoring makes the tradeoff explicit: overlay bias vs motion penalty.
+
+Mode‑specific rules (different coefficients and motion penalties) can flip the winner between:
+
+Anchor‑like, smooth voicing (Worship Pads)
+
+Higher, more dramatic voicing (Piano Pop)
+
+If you’d like, next we can:
+
+Run the same numeric analysis for Steady or Original, or
+
+Extend this to the full C–Dm–F progression step‑by‑step, with scores at each chord.
+
+do both
+Absolutely — let’s build a clear, structured, numerical demo that shows:
+
+How Memory Voicing affects scoring
+
+Numerical scoring for each candidate
+
+How a mode like Worship Pads changes the winner
+
+All of this is grounded in the voice‑leading architecture described on the devlog page you have open .
+
+To keep things concrete, we’ll analyze the step:
+
+C → Dm  
+(from the I → ii → IV progression)
+
+1. Setup
+1.1 Anchor Voicings
+These are the stable, non‑contextual identities.
+
+Chord	Anchor Voicing
+C (I)	C4–E4–G4
+Dm (ii)	D4–F4–A4
+1.2 Realized & Memory Voicing Before the Step
+We assume the user has been exploring, so:
+
+Realized voicing 
+𝑅
+𝑡
+−
+1
+: C4–E4–G4
+
+Memory voicing 
+𝑀
+𝑡
+−
+1
+: G3–C4–E4 (a lower, smoother version)
+
+1.3 Reference Voicing (blend of realized + memory)
+Memory weight:
+
+𝜇
+=
+0.5
+𝑉
+ref
+=
+(
+1
+−
+𝜇
+)
+𝑅
+𝑡
+−
+1
++
+𝜇
+𝑀
+𝑡
+−
+1
+This gives:
+
+top(
+𝑉
+ref
+) = 65.5
+
+centroid(
+𝑉
+ref
+) ≈ 61.67
+
+This is the “target” the Up/Down/Steady overlays compare against.
+
+2. Candidate Voicings for Dm
+We evaluate three candidates:
+
+Candidate	Notes	Top	Centroid
+A	D4–F4–A4	69	65.33
+B	A4–D5–F5	77	73.33
+C	D3–F3–A3	57	53.33
+3. Numerical Scoring Under the Up Overlay
+Up overlay formula:
+
+𝑆
+up
+=
+𝑤
+(
+𝛼
+Δ
+top
++
+𝛽
+Δ
+centroid
+)
+Parameters:
+
+intensity 
+𝑤
+=
+0.5
+
+𝛼
+=
+1.0
+, 
+𝛽
+=
+0.5
+
+3.1 Compute deltas vs 
+𝑉
+ref
+Candidate	Δtop	Δcentroid
+A	69 − 65.5 = 3.5	65.33 − 61.67 = 3.66
+B	77 − 65.5 = 11.5	73.33 − 61.67 = 11.66
+C	57 − 65.5 = –8.5	53.33 − 61.67 = –8.34
+3.2 Compute Up scores
+Candidate	Up Score
+A	0.5 × (3.5 + 0.5×3.66) = 2.665
+B	0.5 × (11.5 + 0.5×11.66) = 8.665
+C	0.5 × (–8.5 + 0.5×–8.34) = –6.335
+Memory voicing softened the upward push by lowering the reference point.
+
+4. Add Base Voice‑Leading Score
+We use a simple motion penalty:
+
+𝑆
+base
+=
+−
+𝑘
+⋅
+totalMotion
+Let 
+𝑘
+=
+0.2
+.
+
+Approximate motion from C4–E4–G4:
+
+Candidate	Motion	Base Score
+A	5	–1.0
+B	29	–5.8
+C	35	–7.0
+4.1 Total Scores (Up overlay + base)
+Candidate	Base	Up	Total
+A	–1.0	+2.665	1.665
+B	–5.8	+8.665	2.865
+C	–7.0	–6.335	–13.335
+Winner (generic mode): Candidate B (A4–D5–F5)  
+The strong upward bias beats the motion penalty.
+
+5. How Worship Pads Mode Changes the Winner
+Worship Pads mode (from your devlog’s design goals) emphasizes:
+
+smoother motion
+
+gentler upward drift
+
+warmer register
+
+So we adjust:
+
+𝛼
+=
+0.7
+, 
+𝛽
+=
+0.3
+
+stronger motion penalty: 
+𝑘
+=
+0.3
+
+5.1 Recompute Up scores (Pads)
+Candidate	Pads Up Score
+A	1.775
+B	5.775
+C	–4.225
+5.2 Recompute base scores (Pads)
+Candidate	Base Score
+A	–1.5
+B	–8.7
+C	–10.5
+5.3 Total Scores (Pads)
+Candidate	Base	Up	Total
+A	–1.5	+1.775	0.275
+B	–8.7	+5.775	–2.925
+C	–10.5	–4.225	–14.725
+Worship Pads Winner: Candidate A (D4–F4–A4)  
+Pads mode prefers smoothness over dramatic register lift.
+
+6. How Piano Pop Mode Changes the Winner
+Piano Pop mode emphasizes:
+
+brighter top line
+
+more energetic leaps
+
+lighter motion penalty
+
+So we adjust:
+
+𝛼
+=
+1.0
+, 
+𝛽
+=
+0.5
+
+weaker motion penalty: 
+𝑘
+=
+0.15
+
+6.1 Base scores (Pop)
+Candidate	Base Score
+A	–0.75
+B	–4.35
+C	–5.25
+6.2 Total Scores (Pop)
+Candidate	Base	Up	Total
+A	–0.75	+2.665	1.915
+B	–4.35	+8.665	4.315
+C	–5.25	–6.335	–11.585
+Piano Pop Winner: Candidate B (A4–D5–F5)  
+Pop mode embraces the big upward leap.
+
+7. Summary Table
+Mode	Winner	Why
+Generic	B (A4–D5–F5)	Up overlay dominates
+Worship Pads	A (D4–F4–A4)	Smoothness > upward lift
+Piano Pop	B (A4–D5–F5)	Bright, energetic leaps favored
+8. What This Demonstrates
+Memory Voicing shifts the reference point, subtly changing how “up” or “down” a voicing feels.
+
+Numerical scoring makes the tradeoff between overlay bias and motion penalty explicit.
+
+Mode‑specific rules can completely change the chosen voicing — even with the same overlay and same chord progression.
+
+This is exactly the kind of expressive, mode‑aware behavior your devlog architecture is designed to support .
+
+1. How Memory Voicing evolves over time
+Let’s stay in C major with the I → ii → IV progression:
+
+I: C
+
+ii: Dm
+
+IV: F
+
+We’ll track three things at each step:
+
+Rₜ = realized voicing at time t
+
+Mₜ = memory voicing at time t
+
+ρ = memory responsiveness (how fast memory follows reality)
+
+Use a simple update rule:
+
+𝑀
+𝑡
+=
+(
+1
+−
+𝜌
+)
+𝑀
+𝑡
+−
+1
++
+𝜌
+𝑅
+𝑡
+We’ll treat this conceptually as “interpolation” between voicings—no need to worry about exact per‑note blending here, just the idea of drift.
+
+Step 0 — Initial state (before playing)
+R₀: C4–E4–G4 (first chord realized as its anchor)
+
+M₀: C4–E4–G4 (initialize memory to first realized voicing)
+
+ρ (Worship Pads): 0.3 → slow, smooth memory
+
+Step 1 — Move to Dm (ii) under Up overlay
+Suppose the engine (in a brighter mode, like Piano Pop) chooses a higher voicing for Dm:
+
+R₁ (Dm): A4–D5–F5
+
+Memory update:
+
+𝑀
+1
+=
+(
+1
+−
+0.3
+)
+𝑀
+0
++
+0.3
+𝑅
+1
+Conceptually:
+
+M₀ is C4–E4–G4
+
+R₁ is A4–D5–F5
+
+M₁ becomes “between” them: higher than C4–E4–G4, but not as high as A4–D5–F5
+
+So:
+
+M₁ ≈ “mid‑register Dm‑ish cloud” that remembers both where you came from and where you went.
+
+On the next chord, overlays that reference V_ref (blend of R and M) will “feel” this upward drift.
+
+Step 2 — Move to F (IV) under Steady overlay
+Now the user switches to Steady, which wants minimal drift.
+
+Engine chooses:
+
+R₂ (F): C4–F4–A4 (close to the original C anchor region)
+
+Memory update:
+
+𝑀
+2
+=
+(
+1
+−
+0.3
+)
+𝑀
+1
++
+0.3
+𝑅
+2
+Conceptually:
+
+M₁ was somewhat high (pulled up by R₁)
+
+R₂ is back in the mid register
+
+M₂ drifts back down toward that mid register
+
+So over time:
+
+M₀: mid C region
+
+M₁: pulled upward by the high Dm
+
+M₂: pulled back toward the mid F voicing
+
+If the user keeps pushing Up, memory will slowly climb; if they keep choosing lower or steadier voicings, memory will slowly sink back. That’s how you get a “history‑aware” reference instead of a single‑step reference.
+
+2. Scoring pipeline as a graph
+Here’s the same pipeline you’ve been designing, but as a graph of nodes and edges—the way you’d sketch it in a systems diagram.
+
+text
+          ┌────────────────────┐
+          │   Chord Block      │
+          │ (harmony + anchor) │
+          └─────────┬──────────┘
+                    │
+                    │
+          ┌─────────▼──────────┐
+          │     Context        │
+          │  - R_{t-1}         │
+          │  - M_{t-1}         │
+          │  - Mode rules      │
+          └─────────┬──────────┘
+                    │
+                    │
+          ┌─────────▼──────────┐
+          │   Overlay State     │
+          │ (type + intensity)  │
+          └─────────┬──────────┘
+                    │
+                    │
+          ┌─────────▼──────────┐
+          │ Candidate Generator │
+          │  - obey harmony     │
+          │  - obey mode rules  │
+          └─────────┬──────────┘
+                    │
+          ┌─────────▼──────────┐
+          │    Base Scoring    │
+          │  S_base(C)         │
+          └─────────┬──────────┘
+                    │
+          ┌─────────▼──────────┐
+          │  Overlay Scoring   │
+          │  S_overlay(C)      │
+          │  - Up/Down/Steady  │
+          │    vs V_ref(R,M)   │
+          │  - Original vs A   │
+          └─────────┬──────────┘
+                    │
+          ┌─────────▼──────────┐
+          │  Argmax Selector   │
+          │  pick best C       │
+          └─────────┬──────────┘
+                    │
+          ┌─────────▼──────────┐
+          │  Realized Voicing  │
+          │       R_t          │
+          └─────────┬──────────┘
+                    │
+          ┌─────────▼──────────┐
+          │  Memory Update     │
+          │  M_t = (1-ρ)M_{t-1}│
+          │        + ρR_t      │
+          └────────────────────┘
+Key ideas in that graph:
+
+Chord Block, Context, and Overlay State all feed into Candidate Generation.
+
+Base Scoring encodes your mode/genre/spacing/common‑tone rules.
+
+Overlay Scoring is a separate node that adds bias based on:
+
+V_ref(R, M) for Up/Down/Steady
+
+Anchor A for Original
+
+The Argmax Selector chooses the winning candidate.
+
+That winner becomes Rₜ, which then flows into the Memory Update node to produce Mₜ, closing the loop.
+
+If you want, we can now:
+
+Run a full I–ii–IV pass with explicit Rₜ, Mₜ, and scores at each step, or
+
+Design debug visualizations (e.g., plotting R vs M vs A over time) to help you tune this in your actual engine.
+
+1. Full I–ii–IV pass with explicit 
+𝑅
+𝑡
+, 
+𝑀
+𝑡
+, and scores
+Key: C major, progression C (I) → Dm (ii) → F (IV)  
+Mode: let’s use Worship Pads (smooth, gentle Up bias)
+Overlay: Up, intensity 
+𝑤
+=
+0.5
+  
+Memory responsiveness: 
+𝜌
+=
+0.3
+  
+Memory weight in reference: 
+𝜇
+=
+0.5
+
+1.1 Anchors
+C anchor 
+𝐴
+𝐶
+: C4–E4–G4
+
+Dm anchor 
+𝐴
+𝐷
+𝑚
+: D4–F4–A4
+
+F anchor 
+𝐴
+𝐹
+: C4–F4–A4
+
+Step 0 — First chord: C (I)
+We start by realizing C as its anchor.
+
+𝑅
+0
+=
+𝐴
+𝐶
+=
+ C4–E4–G4
+
+𝑀
+0
+=
+𝑅
+0
+ (initialize memory to first realized voicing)
+
+No scoring yet—this is the starting point.
+
+Step 1 — Move to Dm (ii) under Up (Pads mode)
+Candidates for Dm:
+
+A: D4–F4–A4 (anchor‑like)
+
+B: A4–D5–F5 (higher)
+
+C: D3–F3–A3 (lower)
+
+We’ll reuse the Worship Pads numbers from before:
+
+Pads Up coefficients: 
+𝛼
+=
+0.7
+, 
+𝛽
+=
+0.3
+
+Motion penalty: 
+𝑘
+=
+0.3
+
+Since 
+𝑅
+0
+=
+𝑀
+0
+, the reference 
+𝑉
+ref
+ is just C4–E4–G4, so the deltas and scores are the same as earlier Pads example.
+
+Up scores (Pads):
+
+𝑆
+up
+(
+𝐴
+)
+≈
+1.775
+
+𝑆
+up
+(
+𝐵
+)
+≈
+5.775
+
+𝑆
+up
+(
+𝐶
+)
+≈
+−
+4.225
+
+Base scores (motion penalty):
+
+𝑆
+base
+(
+𝐴
+)
+=
+−
+1.5
+
+𝑆
+base
+(
+𝐵
+)
+=
+−
+8.7
+
+𝑆
+base
+(
+𝐶
+)
+=
+−
+10.5
+
+Total scores:
+
+A: 
+𝑆
+(
+𝐴
+)
+≈
+−
+1.5
++
+1.775
+=
+0.275
+
+B: 
+𝑆
+(
+𝐵
+)
+≈
+−
+8.7
++
+5.775
+=
+−
+2.925
+
+C: 
+𝑆
+(
+𝐶
+)
+≈
+−
+10.5
+−
+4.225
+=
+−
+14.725
+
+Winner: Candidate A → D4–F4–A4
+
+So:
+
+𝑅
+1
+=
+ D4–F4–A4
+
+Memory update:
+
+𝑀
+1
+=
+(
+1
+−
+𝜌
+)
+𝑀
+0
++
+𝜌
+𝑅
+1
+Conceptually:
+
+𝑀
+0
+: C4–E4–G4
+
+𝑅
+1
+: D4–F4–A4
+
+With 
+𝜌
+=
+0.3
+, 
+𝑀
+1
+ becomes a blend—slightly shifted toward Dm’s region but still close to the original C region. You can think of it as “a smoothed memory of C→Dm”.
+
+Step 2 — Move to F (IV) under Up (Pads mode)
+Now we go from Dm to F, still in Worship Pads + Up.
+
+Candidates for F:
+
+A: C4–F4–A4 (anchor‑like)
+
+B: F4–A4–C5 (higher)
+
+C: F3–A3–C4 (lower)
+
+We now use 
+𝑉
+ref
+ as a blend of 
+𝑅
+1
+ and 
+𝑀
+1
+:
+
+𝑉
+ref
+=
+(
+1
+−
+𝜇
+)
+𝑅
+1
++
+𝜇
+𝑀
+1
+,
+𝜇
+=
+0.5
+Qualitatively:
+
+𝑅
+1
+ is D4–F4–A4
+
+𝑀
+1
+ is between C4–E4–G4 and D4–F4–A4
+
+So 
+𝑉
+ref
+ is a mid‑register Dm‑ish cloud slightly above the original C anchor.
+
+We don’t need exact numbers to see the behavior:
+
+Candidate A (C4–F4–A4) is very close in register and spacing to 
+𝑉
+ref
+.
+
+Candidate B (F4–A4–C5) is higher, so Up overlay likes it, but motion penalty is larger.
+
+Candidate C (F3–A3–C4) is lower, so Up penalizes it.
+
+Given Worship Pads’ stronger motion penalty and softer Up bias, the pattern will mirror the previous step:
+
+A will get a small positive Up score and a small motion penalty.
+
+B will get a larger Up score but a much larger motion penalty.
+
+C will get negative Up score and a motion penalty.
+
+So again, A will win:
+
+𝑅
+2
+=
+ C4–F4–A4
+
+Memory update:
+
+𝑀
+2
+=
+(
+1
+−
+𝜌
+)
+𝑀
+1
++
+𝜌
+𝑅
+2
+Conceptually:
+
+𝑀
+1
+ was between C and Dm
+
+𝑅
+2
+ is F in a similar mid register
+
+𝑀
+2
+ becomes a smoothed memory of the whole C→Dm→F journey, staying in that mid‑register pad region.
+
+Summary of the full pass
+𝑅
+0
+=
+ C4–E4–G4, 
+𝑀
+0
+=
+ C4–E4–G4
+
+𝑅
+1
+=
+ D4–F4–A4, 
+𝑀
+1
+ = blend of C and Dm
+
+𝑅
+2
+=
+ C4–F4–A4, 
+𝑀
+2
+ = blend of C, Dm, F in mid register
+
+Worship Pads + Up:
+
+Keeps everything smooth and mid‑register
+
+Allows gentle upward tendencies but avoids big jumps
+
+Memory voicing slowly tracks the “center of gravity” of what you’ve actually played
+
+2. Debug visualizations to tune this in your engine
+Here are concrete visualization ideas you can implement to see what’s happening.
+
+2.1 Register timeline plot
+What:  
+A time‑series plot with:
+
+X‑axis: chord index or time
+
+Y‑axis: MIDI pitch
+
+Lines:
+
+Anchor top (for each chord)
+
+Realized top 
+top
+(
+𝑅
+𝑡
+)
+
+Memory top 
+top
+(
+𝑀
+𝑡
+)
+
+You’ll see:
+
+How far realized voicings drift from anchors
+
+How memory lags behind realized
+
+How overlays (Up/Down/Steady/Original) change the trajectory
+
+You can do the same for centroid instead of top note.
+
+2.2 Score breakdown bar chart
+For each chord transition:
+
+X‑axis: candidate index (A, B, C, …)
+
+Y‑axis: score
+
+Stacked bars:
+
+Base score (motion, spacing, mode rules)
+
+Overlay score (Up/Down/Steady/Original)
+
+This lets you see:
+
+When overlay bias dominates vs when base rules dominate
+
+How changing mode coefficients (e.g., Worship Pads vs Piano Pop) shifts the balance
+
+2.3 “Gravity field” view for a single chord
+For a given chord and context:
+
+Sample candidate voicings across a grid of registers (e.g., centroid vs top note).
+
+Color each point by total score.
+
+You’ll see a “heatmap” of where the engine wants to land:
+
+With Up, the hot region moves upward.
+
+With Down, it moves downward.
+
+With Steady, it clusters around 
+𝑉
+ref
+.
+
+With Original, it clusters around the anchor.
+
+2.4 Memory vs Realized vs Anchor scatter
+For a longer progression:
+
+Each chord → one point in 2D space:
+
+X‑axis: centroid
+
+Y‑axis: top note
+
+Plot three series:
+
+Anchors (A)
+
+Realized (R)
+
+Memory (M)
+
+You’ll see:
+
+Anchors as fixed “constellations”
+
+Realized as the actual path taken
+
+Memory as a smoothed version of that path
+
+Tuning 
+𝜌
+ and 
+𝜇
+ becomes much easier when you can see how “sticky” memory is.

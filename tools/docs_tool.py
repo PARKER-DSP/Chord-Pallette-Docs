@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+
 import argparse
+import importlib.util
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DOCS_DIR = ROOT / 'docs'
-MKDOCS_FILE = ROOT / 'mkdocs.yml'
+DOCS_DIR = ROOT / "docs"
+MKDOCS_FILE = ROOT / "mkdocs.yml"
+MERMAID_CHECK = ROOT / "tools" / "check_mermaid_syntax.py"
 
-CANONICAL_MKDOCS = '''site_name: ChordPallette Docs
+CANONICAL_MKDOCS = """site_name: ChordPallette Docs
 site_description: Professional product, engineering, UX, and GTM documentation for ChordPallette.
 
 watch:
@@ -74,6 +79,8 @@ nav:
           - Architecture Principles: 01-developer/architecture/architecture-principles.md
           - Module Boundaries: 01-developer/architecture/module-boundaries.md
           - Realtime Safety: 01-developer/architecture/realtime-safety.md
+          - Threading and Lifecycle: 01-developer/architecture/threading-and-lifecycle.md
+          - Playability Overlays Spec: 01-developer/architecture/playability-overlays-spec.md
           - Current Baseline: 01-developer/architecture/current-baseline.md
           - Core Object Models: 01-developer/architecture/ChordPallette_Core_Object_Models.md
           - Extended Core Objects: 01-developer/architecture/ChordPallette_Extended_Core_Objects.md
@@ -101,71 +108,170 @@ nav:
       - Sales One Pager: 03-go-to-market/sales/one-pager.md
       - Investor Pitch Deck: 03-go-to-market/sales/investor-pitch.md
       - Press Kit: 03-go-to-market/sales/press-kit.md
+  - Vision Lab:
+      - Vision Lab Index: 05-vision-lab/index.md
+      - Moonshots: 05-vision-lab/moonshots.md
+      - Dream Feature Template: 05-vision-lab/dream-feature-template.md
+      - Research Intake Summary: 05-vision-lab/research-intake-summary.md
   - Changelog: 07-changelog/changelog.md
   - Archive:
       - Archive Index: archive/index.md
       - Migration Summary: archive/migration-summary.md
-'''
+"""
 
 
-def find_duplicate_top_level_keys(text: str):
-    keys=[]
+def find_duplicate_top_level_keys(text: str) -> list[str]:
+    keys: list[str] = []
     for line in text.splitlines():
-        if not line.strip() or line.lstrip().startswith('#') or line.startswith((' ','\t')):
+        if not line.strip() or line.lstrip().startswith("#") or line.startswith((" ", "\t")):
             continue
-        m=re.match(r'^([A-Za-z0-9_-]+):', line)
-        if m: keys.append(m.group(1))
-    return sorted({k for k in keys if keys.count(k)>1})
+        match = re.match(r"^([A-Za-z0-9_-]+):", line)
+        if match:
+            keys.append(match.group(1))
+    return sorted({key for key in keys if keys.count(key) > 1})
 
-def cmd_generate_nav(_):
-    MKDOCS_FILE.write_text(CANONICAL_MKDOCS, encoding='utf-8')
-    print('mkdocs.yml nav synchronized to canonical structure')
-    return 0
 
-def cmd_check_yaml(_):
-    raw=MKDOCS_FILE.read_text(encoding='utf-8')
-    d=find_duplicate_top_level_keys(raw)
-    if d:
-        print('Duplicate top-level YAML keys found: '+', '.join(d))
+def run_command(command: list[str], description: str) -> int:
+    print(f"[docs-tool] {description}")
+    return subprocess.call(command, cwd=ROOT)
+
+
+def ensure_mkdocs_available() -> int:
+    if importlib.util.find_spec("mkdocs") is None:
+        print("mkdocs is not installed in the active Python environment.")
+        print("Install dependencies with: python -m pip install -r requirements-dev.txt")
         return 1
-    print('mkdocs.yml top-level key uniqueness check passed')
     return 0
 
-def cmd_check_brand(_):
-    bad=[re.compile(r'\bChord Palette\b', re.I), re.compile(r'\bChord-Palette\b', re.I)]
-    fails=[]
-    for p in DOCS_DIR.rglob('*.md'):
-        t=p.read_text(encoding='utf-8', errors='ignore')
-        for b in bad:
-            if b.search(t): fails.append(f"{p.relative_to(ROOT)} -> {b.pattern}")
-    if fails:
-        print('Brand check failed\n'+'\n'.join(fails)); return 1
-    print('Brand check passed'); return 0
 
-def cmd_check_links(_):
-    fails=[]
-    link_re=re.compile(r'\[[^\]]+\]\(([^)]+)\)')
-    for p in DOCS_DIR.rglob('*.md'):
-        txt=p.read_text(encoding='utf-8', errors='ignore')
-        for raw in link_re.findall(txt):
-            tgt=raw.strip()
-            if tgt.startswith(('http://','https://','mailto:','#')): continue
-            tgt=tgt.split('#',1)[0]
-            if not tgt: continue
-            if not (p.parent / tgt).resolve().exists():
-                fails.append(f"{p.relative_to(ROOT)} -> {raw}")
-    if fails:
-        print('Broken links found:\n'+'\n'.join(fails)); return 1
-    print('Internal link check passed'); return 0
+def cmd_generate_nav(_args: argparse.Namespace) -> int:
+    MKDOCS_FILE.write_text(CANONICAL_MKDOCS, encoding="utf-8")
+    print("mkdocs.yml nav synchronized to canonical structure")
+    return 0
 
-def main():
-    ap=argparse.ArgumentParser()
-    sp=ap.add_subparsers(dest='cmd',required=True)
-    sp.add_parser('generate-nav').set_defaults(func=cmd_generate_nav)
-    sp.add_parser('check-yaml').set_defaults(func=cmd_check_yaml)
-    sp.add_parser('check-brand').set_defaults(func=cmd_check_brand)
-    sp.add_parser('check-links').set_defaults(func=cmd_check_links)
-    a=ap.parse_args(); raise SystemExit(a.func(a))
 
-if __name__=='__main__':
-    main()
+def cmd_check_yaml(_args: argparse.Namespace) -> int:
+    raw = MKDOCS_FILE.read_text(encoding="utf-8")
+    duplicates = find_duplicate_top_level_keys(raw)
+    if duplicates:
+        print("Duplicate top-level YAML keys found: " + ", ".join(duplicates))
+        return 1
+    print("mkdocs.yml top-level key uniqueness check passed")
+    return 0
+
+
+def cmd_check_brand(_args: argparse.Namespace) -> int:
+    disallowed_patterns = [re.compile(r"\bChord Palette\b", re.I), re.compile(r"\bChord-Palette\b", re.I)]
+    failures: list[str] = []
+    for doc_path in DOCS_DIR.rglob("*.md"):
+        text = doc_path.read_text(encoding="utf-8", errors="ignore")
+        for pattern in disallowed_patterns:
+            if pattern.search(text):
+                failures.append(f"{doc_path.relative_to(ROOT)} -> {pattern.pattern}")
+    if failures:
+        print("Brand check failed\n" + "\n".join(failures))
+        return 1
+    print("Brand check passed")
+    return 0
+
+
+def cmd_check_links(_args: argparse.Namespace) -> int:
+    failures: list[str] = []
+    link_pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+    for doc_path in DOCS_DIR.rglob("*.md"):
+        text = doc_path.read_text(encoding="utf-8", errors="ignore")
+        for raw_target in link_pattern.findall(text):
+            target = raw_target.strip()
+            if target.startswith(("http://", "https://", "mailto:", "#")):
+                continue
+            target = target.split("#", 1)[0]
+            if not target:
+                continue
+            resolved_target = (doc_path.parent / target).resolve()
+            if not resolved_target.exists():
+                failures.append(f"{doc_path.relative_to(ROOT)} -> {raw_target}")
+    if failures:
+        print("Broken links found:\n" + "\n".join(failures))
+        return 1
+    print("Internal link check passed")
+    return 0
+
+
+def cmd_check_mermaid(_args: argparse.Namespace) -> int:
+    return run_command([sys.executable, str(MERMAID_CHECK)], "Running Mermaid guardrail check")
+
+
+def cmd_check_all(args: argparse.Namespace) -> int:
+    for checker in (cmd_check_yaml, cmd_check_brand, cmd_check_links, cmd_check_mermaid):
+        exit_code = checker(args)
+        if exit_code != 0:
+            return exit_code
+    print("All docs checks passed")
+    return 0
+
+
+def cmd_build(args: argparse.Namespace) -> int:
+    availability_exit_code = ensure_mkdocs_available()
+    if availability_exit_code != 0:
+        return availability_exit_code
+
+    command = [sys.executable, "-m", "mkdocs", "build"]
+    if args.strict:
+        command.append("--strict")
+    return run_command(command, "Building docs")
+
+
+def cmd_serve(args: argparse.Namespace) -> int:
+    availability_exit_code = ensure_mkdocs_available()
+    if availability_exit_code != 0:
+        return availability_exit_code
+
+    return run_command([sys.executable, "-m", "mkdocs", "serve", "--dev-addr", args.addr], "Starting docs server")
+
+
+def cmd_ci(args: argparse.Namespace) -> int:
+    exit_code = cmd_generate_nav(args)
+    if exit_code != 0:
+        return exit_code
+
+    exit_code = cmd_check_all(args)
+    if exit_code != 0:
+        return exit_code
+
+    return cmd_build(args)
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="ChordPallette docs utility commands")
+    subparsers = parser.add_subparsers(dest="cmd", required=True)
+
+    subparsers.add_parser("generate-nav").set_defaults(func=cmd_generate_nav)
+    subparsers.add_parser("check-yaml").set_defaults(func=cmd_check_yaml)
+    subparsers.add_parser("check-brand").set_defaults(func=cmd_check_brand)
+    subparsers.add_parser("check-links").set_defaults(func=cmd_check_links)
+    subparsers.add_parser("check-mermaid").set_defaults(func=cmd_check_mermaid)
+    subparsers.add_parser("check-all").set_defaults(func=cmd_check_all)
+
+    build_parser = subparsers.add_parser("build")
+    build_parser.add_argument("--strict", action="store_true", help="Run mkdocs build --strict")
+    build_parser.set_defaults(func=cmd_build)
+
+    serve_parser = subparsers.add_parser("serve")
+    serve_parser.add_argument("--addr", default="127.0.0.1:8000", help="mkdocs dev server address")
+    serve_parser.set_defaults(func=cmd_serve)
+
+    ci_parser = subparsers.add_parser("ci")
+    ci_parser.add_argument("--strict", action="store_true", help="Run mkdocs build --strict")
+    ci_parser.set_defaults(func=cmd_ci)
+
+    return parser
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

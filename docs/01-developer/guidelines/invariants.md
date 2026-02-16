@@ -1,45 +1,61 @@
-# Refactor Invariants and Guardrails
-
-These rules are mandatory during staged refactoring.
-
-## Non-Negotiable Compatibility Rules
-
-1. Do not rename APVTS parameter IDs in `Source/parameters/ParameterIDs.h`.
-2. Do not change plugin IDs/codes/bundle identifiers in `CMakeLists.txt` without an explicit migration plan.
-3. Do not change preset/state schema keys in `Source/state/PluginState.cpp` unless parsing remains backward compatible.
-4. Do not break `.chbpreset` file compatibility in `Source/presets/PresetLibrary.cpp`.
-5. Do not add third-party dependencies (JUCE + standard library only).
-
-## High-Risk Areas (Extra Caution)
-
-1. Chord labeling/modifier correctness pipeline.
-2. Serialization compatibility and migration behavior.
-3. Standalone-only plugin-hosting lifecycle (scan/load/editor/render path).
-
-## Real-Time Safety Rules
-
-1. Audio-thread code (`processBlock` path) must not perform:
-   - disk I/O
-   - XML parse/write
-   - plugin scanning
-   - blocking waits
-   - long-duration allocations/heavy container churn
-
-2. Prefer snapshots and atomics for UI visibility over shared mutable structures.
-
-3. Any lock used on RT paths must be proven safe/minimal; avoid broad lock scopes.
-
-## Refactor Process Rules
-
-1. Prefer mechanical extraction/moves over behavioral rewrites.
-2. Keep each stage small and build after each stage.
-3. Preserve external behavior and data formats while reorganizing internals.
-4. Add comments/docs at boundaries (threading, ownership, persistence contracts).
-5. If a behavior change is unavoidable, isolate it and document migration/rollback.
-
+---
+audience: contributors
+status: canonical
+owner: docs
+last_reviewed: 2026-02-16
 ---
 
-## Related Documents
+# Documentation Invariants
 
-See [AI Agent Rules](ai-agent-rules.md) for development workflow and commit standards.  
-See [Pro Commit Guidelines](pro-commit-guidelines.md) for required quality gates before every commit.
+These are non-negotiable repository rules for docs structure and consistency.
+
+## Canonical Source Rules
+
+1. Pages referenced by `mkdocs.yml` navigation are canonical.
+2. Canonical pages must include frontmatter:
+   - `audience`
+   - `status`
+   - `owner`
+   - `last_reviewed`
+3. Canonical content must not depend on non-canonical files for core definitions.
+
+## Structure Rules
+
+1. Keep concerns separated by domain folders:
+   - `00-foundation`
+   - `01-developer`
+   - `02-features`
+   - `03-go-to-market`
+   - `04-ux-design`
+   - `05-vision-lab`
+   - `07-changelog`
+   - `archive`
+2. Raw intake and superseded material belong in archive/intake paths, not canonical trees.
+3. Avoid duplicate pages that define the same concept with different wording.
+
+## Linking Rules
+
+1. Use relative internal links for canonical page references.
+2. Prefer linking to the canonical page instead of restating full content.
+3. Do not leave broken internal links.
+
+## Navigation Rules
+
+1. `mkdocs.yml` and `tools/docs_tool.py` canonical nav must stay synchronized.
+2. If nav changes, run `python tools/docs_tool.py generate-nav`.
+
+## Brand and Tone Rules
+
+1. Use `ChordPallette` consistently in canonical docs.
+2. Maintain professional, concise, evidence-oriented tone.
+3. Separate factual specification from speculative ideas.
+
+## High-Risk Pages
+
+Use extra care when editing:
+
+- `docs/01-developer/architecture/ChordPallette_Core_Object_Models.md`
+- `docs/01-developer/architecture/ChordPallette_Migration_Serialization_UndoRedo.md`
+- `docs/03-go-to-market/market-analysis.md`
+
+These pages influence multiple linked sections and should stay internally consistent.

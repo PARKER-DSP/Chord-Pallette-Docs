@@ -1,4 +1,11 @@
-# ChordPallette Architecture — Current Baseline (Phase 0)
+---
+audience: developers
+status: canonical
+owner: engineering
+last_reviewed: 2026-02-16
+---
+
+# ChordPallette Architecture - Current Baseline (Phase 0)
 
 > **Status**: Pre-launch. This document describes the current codebase organization before major refactoring work begins. Used as a reference point to preserve behavior during structural improvements.
 
@@ -179,4 +186,10 @@ When deduplication is enabled:
 - Clarify thread safety contracts
 - Plan API for future extensions (controller profiles, cloud sync, etc.)
 
-See [Development Guidelines](../guidelines/) for refactoring best practices and rules.
+See [Development Guidelines](../guidelines/overview.md) for refactoring best practices and rules.
+
+Related architecture pages:
+
+- [Architecture Overview](architecture-overview.md)
+- [Threading and Lifecycle](threading-and-lifecycle.md)
+- [Playability Overlays Spec](playability-overlays-spec.md)

@@ -1,0 +1,58 @@
+name: docs-ci
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "tools/**"
+      - "scripts/**"
+      - "requirements-dev.txt"
+      - ".github/workflows/docs-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "tools/**"
+      - "scripts/**"
+      - "requirements-dev.txt"
+      - ".github/workflows/docs-ci.yml"
+
+jobs:
+  validate:
+    name: validate (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: "requirements-dev.txt"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-dev.txt
+
+      - name: Regenerate canonical nav
+        run: python tools/docs_tool.py generate-nav
+
+      - name: Ensure mkdocs nav is synchronized
+        run: git diff --exit-code -- mkdocs.yml
+
+      - name: Run docs checks
+        run: python tools/docs_tool.py check-all
+
+      - name: Build docs
+        run: python tools/docs_tool.py build

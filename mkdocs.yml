@@ -64,6 +64,8 @@ nav:
           - Architecture Principles: 01-developer/architecture/architecture-principles.md
           - Module Boundaries: 01-developer/architecture/module-boundaries.md
           - Realtime Safety: 01-developer/architecture/realtime-safety.md
+          - Threading and Lifecycle: 01-developer/architecture/threading-and-lifecycle.md
+          - Playability Overlays Spec: 01-developer/architecture/playability-overlays-spec.md
           - Current Baseline: 01-developer/architecture/current-baseline.md
           - Core Object Models: 01-developer/architecture/ChordPallette_Core_Object_Models.md
           - Extended Core Objects: 01-developer/architecture/ChordPallette_Extended_Core_Objects.md
@@ -91,6 +93,11 @@ nav:
       - Sales One Pager: 03-go-to-market/sales/one-pager.md
       - Investor Pitch Deck: 03-go-to-market/sales/investor-pitch.md
       - Press Kit: 03-go-to-market/sales/press-kit.md
+  - Vision Lab:
+      - Vision Lab Index: 05-vision-lab/index.md
+      - Moonshots: 05-vision-lab/moonshots.md
+      - Dream Feature Template: 05-vision-lab/dream-feature-template.md
+      - Research Intake Summary: 05-vision-lab/research-intake-summary.md
   - Changelog: 07-changelog/changelog.md
   - Archive:
       - Archive Index: archive/index.md

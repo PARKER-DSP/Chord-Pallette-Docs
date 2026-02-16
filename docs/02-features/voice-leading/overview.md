@@ -2,111 +2,37 @@
 audience: product
 status: canonical
 owner: product
-last_reviewed: 2026-02-15
+last_reviewed: 2026-02-16
 ---
 
-# 🎹 Voice Leading — The Secret to Chords That *Flow*
+# Voice Leading Overview
 
-You don't just want chords.  
-You want movement.
+Voice leading controls how one chord moves into the next so transitions feel intentional rather than mechanical.
 
-You trigger a progression…  
-But instead of sounding connected, it jumps.  
-Blocky. Mechanical. MIDI.
+## What It Solves
 
-Voice Leading fixes that.
+- reduces abrupt register jumps
+- preserves useful common tones when possible
+- keeps progression flow consistent across live triggering and sequencing
 
----
+## User-Facing Behavior
 
-## What It Does
+- works during realtime triggering and arranged playback
+- supports style-driven motion profiles (for example smooth, cinematic, neo-soul)
+- remains non-destructive until user freeze/commit action
 
-Voice Leading intelligently connects one chord to the next by smoothly moving each note to the closest, most musical destination.
+## Scope Controls
 
-Instead of:
+Voice leading behavior can be applied at:
 
-**Cmaj7 → Fmaj7**  
-(notes jumping awkwardly across octaves)
+- bank level (default policy)
+- block level override (local behavior)
+- performance context based on actual trigger order
 
-You get:
+Detailed UX behavior is documented in [Voice Leading Operator Pack UX](operator-pack-ux.md).
 
-**Cmaj7 → Fmaj7**  
-(notes sliding naturally, shared tones preserved, bass grounded)
+## Architecture Contracts
 
-The result?
-
-✨ **Chords that breathe**  
-✨ **Transitions that feel intentional**  
-✨ **Progressions that tell a story**  
-
----
-
-## Why It Matters
-
-Great harmony isn't just about *what* chord comes next.
-
-It's about *how* it gets there.
-
-Film composers use it.  
-Neo-soul players rely on it.  
-Classical composers mastered it centuries ago.  
-
-Now it's built directly into your performance workflow.
-
----
-
-## Designed for Live Creativity
-
-Voice Leading works **in real time**.
-
-Trigger chords in any order.  
-Jump around your bank.  
-Improvise.
-
-The plugin listens to what just played and adjusts the next chord to connect smoothly.
-
-No setup.  
-No theory knowledge required.  
-Just better movement.
-
----
-
-## Choose the Feel
-
-Voice Leading includes style profiles to match your sound:
-
-**Smooth**  
-Natural, minimal motion. Perfect for songwriting.
-
-**Cinematic**  
-Wide emotional movement with lyrical top lines.
-
-**Neo-Soul**  
-Clustered upper voices and silky bass stability.
-
-**Classical**  
-Structured motion with disciplined voice control.
-
-**EDM Stack**  
-Big spreads, stable low end, powerful upper motion.
-
-Each style gives your progression a distinct personality.
-
----
-
-## Non-Destructive & Flexible
-
-Voice Leading never changes your original chords.
-
-You can:
-- Toggle it on or off instantly
-- Override it per chord
-- Freeze the result when you love it
-- Export either the original or voice-led version
-
-Total creative control. Zero risk.
-
----
-
-## Next Steps
-
-Learn more in [Operator Pack UX & System Design](operator-pack-ux.md) for technical and interaction details.
+- [Playability Overlays Spec](../../01-developer/architecture/playability-overlays-spec.md)
+- [Threading and Lifecycle](../../01-developer/architecture/threading-and-lifecycle.md)
+- [Realtime Safety](../../01-developer/architecture/realtime-safety.md)

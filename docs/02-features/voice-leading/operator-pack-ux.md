@@ -2,7 +2,7 @@
 audience: product
 status: canonical
 owner: product
-last_reviewed: 2026-02-15
+last_reviewed: 2026-02-16
 ---
 
 # Voice Leading Operator Pack — UX & System Design
@@ -24,6 +24,12 @@ Voice leading is implemented as:
 - Fully previewable before committing
 
 **Goal:** Make harmonic motion feel smooth, intentional, and expressive — without requiring music theory knowledge.
+
+## Related Contracts
+
+- [Playability Overlays Spec](../../01-developer/architecture/playability-overlays-spec.md)
+- [Threading and Lifecycle](../../01-developer/architecture/threading-and-lifecycle.md)
+- [Realtime Safety](../../01-developer/architecture/realtime-safety.md)
 
 ---
 

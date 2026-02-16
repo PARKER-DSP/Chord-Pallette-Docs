@@ -141,4 +141,4 @@ Producers want better harmony fast, but current chord tools are often:
 - [One-Pager](one-pager.md) – Executive summary
 - [Product Positioning](../../00-foundation/positioning.md) – Market opportunity
 - [Marketing Strategy](../marketing/marketing-strategy.md) – Go-to-market details
-- [Product Roadmap](../../00-foundation/jtbd.md#phase-roadmap-at-a-glance) – Feature timeline
+- [Product Roadmap](../../00-foundation/jtbd.md) – Feature timeline

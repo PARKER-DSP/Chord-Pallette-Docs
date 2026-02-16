@@ -2,7 +2,7 @@
 audience: developers
 status: canonical
 owner: engineering
-last_reviewed: 2026-02-15
+last_reviewed: 2026-02-16
 ---
 
 # Architecture Index
@@ -13,6 +13,8 @@ last_reviewed: 2026-02-15
 - [Architecture Principles](architecture-principles.md)
 - [Module Boundaries](module-boundaries.md)
 - [Realtime Safety](realtime-safety.md)
+- [Threading and Lifecycle](threading-and-lifecycle.md)
+- [Playability Overlays Spec](playability-overlays-spec.md)
 - [Current Baseline](current-baseline.md)
 - [Core Object Models](ChordPallette_Core_Object_Models.md)
 - [Extended Core Objects](ChordPallette_Extended_Core_Objects.md)
